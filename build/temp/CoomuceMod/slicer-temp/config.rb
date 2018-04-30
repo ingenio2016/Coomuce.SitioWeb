@@ -1,4 +1,4 @@
 
-            require 'E:\PROYECTO MULTIACTIVA\VisualStudioSolution\REPOSITORIO\FinalRepo\cmaBackend\Coomuce.SitioWeb\packages\local\CoomuceMod/build//config.rb'
-            cache_path = 'E:\PROYECTO MULTIACTIVA\VisualStudioSolution\REPOSITORIO\FinalRepo\cmaBackend\Coomuce.SitioWeb/build/.sass-cache'
+            require 'C:\Users\24 RO11LA\Documents\DesarrolloMA\cmaBackend\Coomuce.SitioWeb\packages\local\CoomuceMod/build//config.rb'
+            cache_path = 'C:\Users\24 RO11LA\Documents\DesarrolloMA\cmaBackend\Coomuce.SitioWeb/build/.sass-cache'
         

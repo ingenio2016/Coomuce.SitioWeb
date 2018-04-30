@@ -97,7 +97,7 @@
             },
             {
                 xtype: "textfield",
-                fieldLabel: "Código<br />(A registrar por la EPS)",
+                fieldLabel: "Código<br />(A registrar por la EPS.)",
                 name: "codigoCotizanteFuan",
                 value: "0"
             }
