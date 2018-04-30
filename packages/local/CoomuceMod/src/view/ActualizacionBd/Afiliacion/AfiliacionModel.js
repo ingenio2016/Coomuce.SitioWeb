@@ -279,6 +279,7 @@
         },
 
         getDeclaracionAutorizacion: {
+            storeId: "declaracionAutorizacionStore",
             autoLoad: true,
             fields: [
                 "idFuan", "idDeclaracionAutorizacion", "compDeclaracionAutorizacion", "valorFuanDeclaracionAutorizacion"

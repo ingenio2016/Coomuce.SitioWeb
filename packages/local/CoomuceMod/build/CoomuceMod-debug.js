@@ -2081,26 +2081,6 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         var me = this;
         console.log(sm);
         console.log(selected);
-        if (selected.length > sm.maxSelection) {
-            for (var i = sm.maxSelection; i < selected.length; i++) {
-                var rec = selected[i];
-                sm.deselect(rec, true);
-            }
-            // deseleccionar registros que sobrepasan el limite
-            return false;
-        }
-        if (selected.length > 0) {
-            var valueId = selected.map(function(item) {
-                    return item.data[sm.idCampo];
-                });
-            var valueComp = selected.map(function(item) {
-                    return item.data[sm.compCampo];
-                });
-            var ob = me.lookupReference(sm.idCampo);
-            ob.setValue(valueId);
-            ob = me.lookupReference(sm.compCampo);
-            ob.setValue(valueComp);
-        }
     },
     onBlurNumber: function(number, event, eOpts) {
         number.setRawValue(Ext.util.Format.usMoney(number.getValue()));
@@ -2664,6 +2644,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionModel", {
             }
         },
         getDeclaracionAutorizacion: {
+            storeId: "declaracionAutorizacionStore",
             autoLoad: true,
             fields: [
                 "idFuan",
@@ -2839,7 +2820,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                         },
                         {
                             xtype: "textfield",
-                            fieldLabel: "Código<br />(A registrar por la EPS)",
+                            fieldLabel: "Código<br />(A registrar por la EPS.)",
                             name: "codigoCotizanteFuan",
                             value: "0"
                         }
@@ -3704,7 +3685,8 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                             columns: [
                                 {
                                     dataIndex: "valorFuanDeclaracionAutorizacion",
-                                    width: 40
+                                    width: 40,
+                                    hidden: true
                                 },
                                 {
                                     dataIndex: "compDeclaracionAutorizacion",
@@ -3720,7 +3702,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                                 checkOnly: true,
                                 //Hacer esto para seleccionar elementos de un grid sólo cuando se checken
                                 idCampo: "valorFuanDeclaracionAutorizacion",
-                                compCampo: "valorFuanDeclaracionAutorizacion",
+                                compCampo: "compDeclaracionAutorizacion",
                                 listeners: {
                                     selectionchange: "onSelectionChange"
                                 }

@@ -702,156 +702,156 @@
                                             dataIndex: "nombreCompletoIps", name: "nombreCompletoIps", header: "", readOnly: true, width: 400, editor: {
                                                 allowBlank: false,
                                                 readOnly: true                                            }
+                                            }
+                                            ]
+                                        },
+                                        {
+                                            dataIndex: "codigoFuanIpsPrimariaAfiliado", header: "Código de la IPS<br />(A registrar por la EPS)", width: 300, editor: {
+                                                allowBlank: false
+                                            }
+                                        },
+                                        {
+                                            xtype: "widgetcolumn", header: "", width: 40, widget: {
+                                                xtype: "button",
+                                                componentReference: [
+                                                "nombreCompletoIps"
+                                                ],
+                                                handler: Coomuce.Util.buscarIpsAfiliacion,
+                                                inGrid: true,
+                                                iconCls: "x-fa fa-list-alt",
+                                                tooltip: "Lista de Ips"
+                                            }
                                         }
+                                        ],
+                                        columnLines: true,
+                                        height: 200,
+                                        id: "Grid-IpsPrimaria",
+                                        plugins: {
+                                            ptype: 'cellediting',
+                                            clicksToEdit: 1
+                                        },
+                                        sortableColumns: false,
+                                        title: "Selección de la EPS primaria",
+                                        tools: [
+                                        { handler: "onToolIpsPrimariaAdicionarClick", tooltip: "Adicionar IPS", type: "plus" },
+                                        { handler: "onToolIpsPrimariaRemoverClick", tooltip: "Remover IPS", type: "minus" }
                                         ]
-                                    },
-                                    {
-                                        dataIndex: "codigoFuanIpsPrimariaAfiliado", header: "Código de la IPS<br />(A registrar por la EPS)", width: 300, editor: {
-                                            allowBlank: false
-                                        }
-                                    },
-                                    {
-                                        xtype: "widgetcolumn", header: "", width: 40, widget: {
-                                            xtype: "button",
-                                            componentReference: [
-                                            "nombreCompletoIps"
-                                            ],
-                                            handler: Coomuce.Util.buscarIpsAfiliacion,
-                                            inGrid: true,
-                                            iconCls: "x-fa fa-list-alt",
-                                            tooltip: "Lista de Ips"
-                                        }
                                     }
                                     ],
-                                    columnLines: true,
-                                    height: 200,
-                                    id: "Grid-IpsPrimaria",
-                                    plugins: {
-                                        ptype: 'cellediting',
-                                        clicksToEdit: 1
+                                    title: "IV. DATOS DE IDENTIFICACIÓN DE LOS MIEMBROS DEL NÚCLEO FAMILIAR"
+                                },
+                                {
+                                    xtype: "fieldset",
+                                    defaults: {
+                                        allowBlank: true,
+                                        anchor: "100%",
+                                        labelWidth: 150
                                     },
-                                    sortableColumns: false,
-                                    title: "Selección de la EPS primaria",
-                                    tools: [
-                                    { handler: "onToolIpsPrimariaAdicionarClick", tooltip: "Adicionar IPS", type: "plus" },
-                                    { handler: "onToolIpsPrimariaRemoverClick", tooltip: "Remover IPS", type: "minus" }
-                                    ]
-                                }
-                                ],
-                                title: "IV. DATOS DE IDENTIFICACIÓN DE LOS MIEMBROS DEL NÚCLEO FAMILIAR"
-                            },
-                            {
-                                xtype: "fieldset",
-                                defaults: {
-                                    allowBlank: true,
-                                    anchor: "100%",
-                                    labelWidth: 150
-                                },
-                                items: [
-                                {
-                                    xtype: "textfield",
-                                    fieldLabel: "Nombre o Razón Social",
-                                    name: "nombreFuanEmpleadorAfiliado"
-                                },
-                                {
-                                    xtype: "combo",
-                                    bind: {
-                                        store: "{getTipoIdentificacion}"
+                                    items: [
+                                    {
+                                        xtype: "textfield",
+                                        fieldLabel: "Nombre o Razón Social",
+                                        name: "nombreFuanEmpleadorAfiliado"
                                     },
-                                    displayField: "compTipoIdentificacion",
-                                    editable: false,
-                                    fieldLabel: "Tipo documento de identidad",
-                                    name: "idTipoIdentificacion",
-                                    queryMode: "local",
-                                    valueField: "idTipoIdentificacion"
-                                },
-                                {
-                                    xtype: "numberfield",
-                                    fieldLabel: "Número de documento de identidad",
-                                    name: "identificacionFuanEmpleadorAfiliado",
-                                    value: 0
-                                },
-                                {
-                                    xtype: "textfield",
-                                    fieldLabel: "Tipo de aportante o pagador pensiones (A registrar por la EPS)",
-                                    name: "tipoPagadorFuanEmpleadorAfiliado"
-                                },
-                                {
-                                    xtype: "textfield",
-                                    fieldLabel: "Dirección",
-                                    name: "direccionFuanEmpleadorAfiliado"
-                                },
-                                {
-                                    xtype: "numberfield",
-                                    fieldLabel: "Teléfono",
-                                    name: "telefonoFuanEmpleadorAfiliado",
-                                    value: 0
-                                },
-                                {
-                                    xtype: "textfield",
-                                    fieldLabel: "Correo Electrónico",
-                                    name: "emailFuanEmpleadorAfiliado",
-                                    vtype: "email"
-                                },
-                                {
-                                    xtype: "combo",
-                                    bind: {
-                                        store: "{getDepartamento}"
+                                    {
+                                        xtype: "combo",
+                                        bind: {
+                                            store: "{getTipoIdentificacion}"
+                                        },
+                                        displayField: "compTipoIdentificacion",
+                                        editable: false,
+                                        fieldLabel: "Tipo documento de identidad",
+                                        name: "idTipoIdentificacion",
+                                        queryMode: "local",
+                                        valueField: "idTipoIdentificacion"
                                     },
-                                    ciudadReference: "idCiudadfV",
-                                    displayField: "compDepartamento",
-                                    editable: false,
-                                    fieldLabel: "Departamento",
-                                    listeners: {
-                                        select: "onSelectCombo"
+                                    {
+                                        xtype: "numberfield",
+                                        fieldLabel: "Número de documento de identidad",
+                                        name: "identificacionFuanEmpleadorAfiliado",
+                                        value: 0
                                     },
-                                    name: "idDepartamento",
-                                    queryMode: "local",
-                                    ubicacion: true,
-                                    valueField: "idDepartamento"
-                                },
-                                {
-                                    xtype: "combo",
-                                    bind: {
-                                        store: "{getCiudad}"
+                                    {
+                                        xtype: "textfield",
+                                        fieldLabel: "Tipo de aportante o pagador pensiones (A registrar por la EPS)",
+                                        name: "tipoPagadorFuanEmpleadorAfiliado"
                                     },
-                                    displayField: "compCiudad",
-                                    editable: false,
-                                    fieldLabel: "Municipio/Distrito",
-                                    name: "idCiudadV",
-                                    queryMode: "local",
-                                    reference: "idCiudadfV",
-                                    valueField: "idCiudad"
-                                }
-                                ],
-                                title: "V. DATOS DE IDENTIFICACIÓN DEL EMPLEADOR Y OTROS APORTANTES <br />DE LAS ENTIDADES RESPONSABLES DE LA AFILIACIÓN COLECTIVA, INSTITUCIONAL O DE OFICIO"
-                            },
-                            {
-                                xtype: "fieldset",
-                                defaults: {
-                                    anchor: "100%"
-                                },
-                                items: [
-                                { xtype: "textfield", name: "valorFuanDeclaracionAutorizacion", hidden: true, reference: "valorFuanDeclaracionAutorizacion" },
-                                { xtype: "textfield", name: "compDeclaracionAutorizacion", hidden: true, reference: "compDeclaracionAutorizacion" },
-                                {
-                                    xtype: "grid",
-                                    bind: {
-                                        store: "{getDeclaracionAutorizacion}"
+                                    {
+                                        xtype: "textfield",
+                                        fieldLabel: "Dirección",
+                                        name: "direccionFuanEmpleadorAfiliado"
                                     },
-                                    columns: [
-                                    { dataIndex: "valorFuanDeclaracionAutorizacion", width: 40 },
-                                    { dataIndex: "compDeclaracionAutorizacion", header: "Descripción", width: 700 }
-
+                                    {
+                                        xtype: "numberfield",
+                                        fieldLabel: "Teléfono",
+                                        name: "telefonoFuanEmpleadorAfiliado",
+                                        value: 0
+                                    },
+                                    {
+                                        xtype: "textfield",
+                                        fieldLabel: "Correo Electrónico",
+                                        name: "emailFuanEmpleadorAfiliado",
+                                        vtype: "email"
+                                    },
+                                    {
+                                        xtype: "combo",
+                                        bind: {
+                                            store: "{getDepartamento}"
+                                        },
+                                        ciudadReference: "idCiudadfV",
+                                        displayField: "compDepartamento",
+                                        editable: false,
+                                        fieldLabel: "Departamento",
+                                        listeners: {
+                                            select: "onSelectCombo"
+                                        },
+                                        name: "idDepartamento",
+                                        queryMode: "local",
+                                        ubicacion: true,
+                                        valueField: "idDepartamento"
+                                    },
+                                    {
+                                        xtype: "combo",
+                                        bind: {
+                                            store: "{getCiudad}"
+                                        },
+                                        displayField: "compCiudad",
+                                        editable: false,
+                                        fieldLabel: "Municipio/Distrito",
+                                        name: "idCiudadV",
+                                        queryMode: "local",
+                                        reference: "idCiudadfV",
+                                        valueField: "idCiudad"
+                                    }
                                     ],
-                                    columnLines: true,
-                                    height: 300,
-                                    loadMask: true,
-                                    selModel: {
-                                        type: 'checkboxmodel',
+                                    title: "V. DATOS DE IDENTIFICACIÓN DEL EMPLEADOR Y OTROS APORTANTES <br />DE LAS ENTIDADES RESPONSABLES DE LA AFILIACIÓN COLECTIVA, INSTITUCIONAL O DE OFICIO"
+                                },
+                                {
+                                    xtype: "fieldset",
+                                    defaults: {
+                                        anchor: "100%"
+                                    },
+                                    items: [
+                                    { xtype: "textfield", name: "valorFuanDeclaracionAutorizacion", hidden: true, reference: "valorFuanDeclaracionAutorizacion" },
+                                    { xtype: "textfield", name: "compDeclaracionAutorizacion", hidden: true, reference: "compDeclaracionAutorizacion" },
+                                    {
+                                        xtype: "grid",
+                                        bind: {
+                                            store: "{getDeclaracionAutorizacion}"
+                                        },
+                                        columns: [
+                                        { dataIndex: "valorFuanDeclaracionAutorizacion", width: 40, hidden: true },
+                                        { dataIndex: "compDeclaracionAutorizacion", header: "Descripción", width: 700 }
+
+                                        ],
+                                        columnLines: true,
+                                        height: 300,
+                                        loadMask: true,
+                                        selModel: {
+                                            type: 'checkboxmodel',
                                                 checkOnly: true, //Hacer esto para seleccionar elementos de un grid sólo cuando se checken
                                                 idCampo: "valorFuanDeclaracionAutorizacion",
-                                                compCampo: "valorFuanDeclaracionAutorizacion",
+                                                compCampo: "compDeclaracionAutorizacion",
                                                 listeners: {
                                                     selectionchange: "onSelectionChange"
                                                 }

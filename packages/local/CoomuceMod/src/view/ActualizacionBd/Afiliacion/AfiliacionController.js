@@ -25,30 +25,6 @@
         var me = this;
         console.log(sm);
         console.log(selected);
-
-        if (selected.length > sm.maxSelection) {
-            for (var i = sm.maxSelection; i < selected.length; i++) {
-                var rec = selected[i];
-                sm.deselect(rec, true); // deseleccionar registros que sobrepasan el limite
-            }
-            return false;
-        }
-
-        if (selected.length > 0) {
-            var valueId = selected.map(function (item) {
-                return item.data[sm.idCampo];
-            });
-
-            var valueComp = selected.map(function (item) {
-                return item.data[sm.compCampo];
-            })
-
-            var ob = me.lookupReference(sm.idCampo);
-            ob.setValue(valueId);
-
-            ob = me.lookupReference(sm.compCampo);
-            ob.setValue(valueComp);
-        }
     },
 
     onBlurNumber: function (number, event, eOpts) {
