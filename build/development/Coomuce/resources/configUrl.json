@@ -1,0 +1,8 @@
+﻿{
+  "success": true,
+  "BaseUrl": [
+    {
+      "appService": "http://localhost:60871/"
+    }
+  ]
+}

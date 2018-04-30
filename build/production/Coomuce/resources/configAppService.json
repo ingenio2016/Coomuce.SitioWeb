@@ -1,0 +1,11 @@
+﻿{
+  "success": true,
+  "BaseUrl": [
+    {
+      "appService": "http://localhost:60871/",
+      "reportService": "http://localhost:58987/",
+      "localAppService": "http://192.168.0.100:60871/",
+      "localReportService": "http://192.168.0.100:58987/"
+    }
+  ]
+}

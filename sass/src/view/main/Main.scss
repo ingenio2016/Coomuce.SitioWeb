@@ -1,0 +1,49 @@
+﻿@include extjs-tab-panel-ui(
+    $ui: "tabnav",
+
+    $ui-tab-background-color: transparent,
+    $ui-tab-background-color-over: #D3D3D3,
+    $ui-tab-background-gradient: 'none',
+    $ui-tab-background-gradient-over: 'none',
+    $ui-tab-background-gradient-active: 'none',
+    $ui-tab-color: #564C4A!important,//color de la letra
+    $ui-tab-color-active:  #fff!important,//Color de letra activo
+    $ui-tab-color-over: #564C4A!important,//Color de letra en hover
+    //$ui-tab-color-active: #72aa1d!important,//color de la letra
+    $ui-tab-glyph-color: #ffffff!important,//Color del ícono
+    $ui-tab-glyph-color-over: #564C4A,
+    $ui-tab-glyph-color-active: #fff,//Color del icono activo
+    $ui-tab-glyph-color: #564C4A,//Color del icono activ
+    $ui-tab-glyph-opacity: 1,
+    $ui-tab-border-radius: 0,
+    $ui-tab-border-color: #5fa2dd!important,
+    $ui-tab-border-color-over: #5fa2dd!important,
+    $ui-tab-border-color-active: #5fa2dd!important,
+    $ui-tab-plain-border-color: #5fa2dd!important,
+    $ui-tab-outline-color-focus: transparent!important,
+    $ui-tab-border-width: 1px,
+    $ui-tab-inner-border-width: 1px,
+    //$ui-tab-padding: 24px,
+    $ui-tab-margin: 0,
+    $ui-tab-font-size: 15px,
+    $ui-tab-font-size-over: 15px,
+    $ui-tab-font-size-active: 15px,
+    //$ui-tab-line-height: 19px,
+    //$ui-tab-font-weight: bold,
+    $ui-tab-font-weight-over: bold,
+    $ui-tab-font-weight-active: bold,
+    $ui-tab-icon-width: 24px,
+    //$ui-tab-icon-height: 24px,
+    //$ui-bar-background-color: #32404e!important,
+    $ui-bar-background-gradient: 'none',
+    $ui-bar-padding: 0,
+    $ui-bar-background-color: #ffffff,
+    $ui-strip-height: 0,
+    $ui-tab-background-color-active: #5fa2dd, //#02A39D, //Color del Tab
+    $ui-tab-closable-icon-glyph-color-active: #fff, //Color de la x en panel activo
+    $ui-tab-closable-icon-glyph-color: #564C4A //Color de la x en panel inactivo
+);
+
+.x-box-scroller-tab-bar-tabnav {
+    color: #5fa2dd;
+}

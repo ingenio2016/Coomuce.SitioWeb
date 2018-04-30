@@ -1,0 +1,60 @@
+﻿@include treelist-ui(
+    $ui: 'nav',
+
+    // Extra padding left/right
+    $padding: 0 10px,
+
+    // Black-ish background color
+    $background-color: #ffffff!important,//Color verde azuloso de fondo que queda vacio debajo del tree
+    $toolstrip-background-color: #ffffff!important,
+
+    $tool-selected-color: #f0f0f0!important,
+    $tool-selected-background-color: #5fa2dd!important,
+
+    $tool-float-indicator-width: 4px,
+    $tool-float-indicator-color: #5fa2dd!important,
+
+    // Darker background for expanded subtrees
+    $item-expanded-background-color: #ffffff!important,//El mas buscado.com Azul negruzco del fondo del tree
+
+    // Taller line height
+    $item-line-height: 36px,
+
+    // Off-white text
+    $item-icon-color: #5fa2dd!important,//Color blanco de los íconos
+    $item-expander-color: #5fa2dd!important,//Color blanco de los triangulos de expansión.
+    $item-text-color: #5fa2dd!important,//Color blanco del texto
+
+    // Brighter when hovered
+    $row-over-background-color: #5fa2dd!important,//Item hover
+    $item-icon-over-color: #ffffff!important,
+    $item-expander-over-color: #ffffff!important,
+    $item-text-over-color: #ffffff!important,
+
+    $row-indicator-width: 6px,
+    $row-indicator-selected-color: #5fa2dd!important,//COlor de la parte izquierda
+    $row-indicator-selected-over-color: lighten(#5fa2dd, 10%),
+    $row-indicator-over-color: lighten(#5fa2dd, 10%),
+
+    // Various sizes for the pieces:
+    $item-icon-font-size: 18px!important,
+    $item-icon-width: 45px,
+    $item-expander-font-size: 16px!important,
+    $item-expander-width: 24px,
+
+    $row-selected-background-color: #ffffff //Color verde azuloso oscuro cuando está seleccionado una fila del tree
+);
+
+.treelist-with-nav .#{$prefix}panel-body {
+    background-color: #32404e;
+}
+
+.x-treelist-item-expanded > * > * > .x-treelist-item-expander:after {
+    content: "\f078";
+    font-size: 12px !important;
+}
+
+.x-treelist-item-expander:after {
+    content: "\f054";
+    font-size: 12px !important;
+}

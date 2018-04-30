@@ -1,0 +1,165 @@
+Sencha Cmd 6.0.2.14 - Crash report
+================================================
+An error occurred while executing the following command: build package
+
+Diagnostic information:
+=======================
+                        app.sass.dynamic : true                                              
+                    buildenvironment.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod
+               buildenvironment.load.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod
+                          cmd.config.dir : C:\Users\NorteTic SAS\bin\Sencha\Cmd\6.0.2.14     
+                                 cmd.dir : C:\Users\NorteTic SAS\bin\Sencha\Cmd\6.0.2.14     
+                    cmd.framework.minver : 5.5.0                                             
+                   cmd.framework.version : 99.99                                             
+                            cmd.jvm.args : -Xms128m -Xmx1024m -Dapple.awt.UIElement=true     
+              cmd.merge.tool.args.araxis : -wait -merge -3 -a1 {base} {user} {generated} {out}
+              cmd.merge.tool.args.kdiff3 : {base} {user} {generated} -o {out}                
+             cmd.merge.tool.args.p4merge : {base} {user} {generated} {out}                   
+           cmd.merge.tool.args.smartsync : {user} {generated} {base}                         
+          cmd.merge.tool.args.sourcegear : --merge --result={out} {user} {base} {generated}  
+            cmd.merge.tool.args.tortoise : -base:{base} -theirs:{generated} -mine:{user} -merged:{out}
+                              cmd.minver : 3.0.0.0                                           
+                            cmd.platform : windows                                           
+                         cmd.server.port : 1841                                              
+                     cmd.unicode.escapes : C:\Users\NorteTic SAS\bin\Sencha\Cmd\6.0.2.14/unicode-escapes.json
+                             cmd.version : 6.0.2.14                                          
+                            cmd.web.port : 1841                                              
+                     config.skipDownload : false                                             
+                      config.skipInherit : true                                              
+                                 ext.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/ext
+                        ext.license.name : gpl                                               
+                     framework.build.dir : ${package.output.base}                            
+                     framework.classpath : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/src
+                    framework.cmd.minver : 6.0.1.75                                          
+                   framework.cmd.version : 6.0.1.75                                          
+                 framework.compatVersion : 6.0.0                                             
+                    framework.config.dir : C:\Users\NorteTic SAS\bin\Sencha\Cmd\6.0.2.14\plugins\ext\current
+                       framework.creator : Sencha                                            
+           framework.detailedDescription : Sencha Ext JS JavaScript Framework                
+                           framework.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext
+                  framework.example.apps : admin-dashboard,executive-dashboard,kitchensink,classic/charts-kitchensink,classic/desktop,classic/ticket-app,classic/portal,classic/simple-tasks,classic/responsive-app,classic/aria,modern/addressbook,modern/blackberry,modern/energy,modern/stockapp,modern/states,modern/geocongress,modern/oreilly
+                framework.example.apps.0 : admin-dashboard                                   
+                framework.example.apps.1 : executive-dashboard                               
+               framework.example.apps.10 : modern/addressbook                                
+               framework.example.apps.11 : modern/blackberry                                 
+               framework.example.apps.12 : modern/energy                                     
+               framework.example.apps.13 : modern/stockapp                                   
+               framework.example.apps.14 : modern/states                                     
+               framework.example.apps.15 : modern/geocongress                                
+               framework.example.apps.16 : modern/oreilly                                    
+                framework.example.apps.2 : kitchensink                                       
+                framework.example.apps.3 : classic/charts-kitchensink                        
+                framework.example.apps.4 : classic/desktop                                   
+                framework.example.apps.5 : classic/ticket-app                                
+                framework.example.apps.6 : classic/portal                                    
+                framework.example.apps.7 : classic/simple-tasks                              
+                framework.example.apps.8 : classic/responsive-app                            
+                framework.example.apps.9 : classic/aria                                      
+           framework.example.apps.length : 17                                                
+                  framework.example.path : examples,templates                                
+                framework.example.path.0 : examples                                          
+                framework.example.path.1 : templates                                         
+           framework.example.path.length : 2                                                 
+                        framework.format : 1                                                 
+                          framework.isV5 : true                                              
+                          framework.isV6 : true                                              
+                          framework.name : ext                                               
+                     framework.namespace : Ext                                               
+                        framework.output : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/build
+                     framework.overrides : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/overrides
+                  framework.packages.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext/packages/,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext/classic
+                framework.resource.paths : resources                                         
+              framework.resource.paths.0 : resources                                         
+         framework.resource.paths.length : 1                                                 
+                      framework.sass.etc : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/etc/all.scss
+                  framework.sass.fashion : true                                              
+                framework.sass.namespace : Ext                                               
+                      framework.sass.src : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/src
+                      framework.sass.var : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/var
+                       framework.subpkgs : classic/classic,modern/modern,packages/charts,packages/amf,packages/soap,packages/ux,packages/legacy,packages/font-awesome,packages/font-pictos,packages/font-ext
+                     framework.subpkgs.0 : classic/classic                                   
+                     framework.subpkgs.1 : modern/modern                                     
+                     framework.subpkgs.2 : packages/charts                                   
+                     framework.subpkgs.3 : packages/amf                                      
+                     framework.subpkgs.4 : packages/soap                                     
+                     framework.subpkgs.5 : packages/ux                                       
+                     framework.subpkgs.6 : packages/legacy                                   
+                     framework.subpkgs.7 : packages/font-awesome                             
+                     framework.subpkgs.8 : packages/font-pictos                              
+                     framework.subpkgs.9 : packages/font-ext                                 
+                framework.subpkgs.length : 10                                                
+                       framework.summary : Ext JS                                            
+                          framework.type : framework                                         
+                       framework.version : 6.0.1.250                                         
+                       inspector.address : http://localhost:1839/                            
+                      package.base.names :                                                   
+                   package.base.packages :                                                   
+                       package.classpath : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/src,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/classic/src
+                     package.cmd.version : 6.0.2.14                                          
+                   package.compatVersion : 1.0.0                                             
+                      package.config.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod\.sencha\package
+                         package.creator : anonymous                                         
+             package.detailedDescription : Long description of package                       
+                             package.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod
+                          package.format : 1                                                 
+                       package.framework : ext                                               
+                           package.local : true                                              
+                            package.name : CoomuceMod                                        
+                       package.namespace : CoomuceMod                                        
+                          package.output : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/build
+                       package.overrides : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/overrides,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/classic/overrides
+                  package.requires.names : ext,core,classic,theme-base,theme-neutral,theme-neptune,font-awesome,font-ext,theme-triton
+               package.requires.packages : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\packages\core,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\classic\classic,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\classic\theme-base,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\classic\theme-neutral,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\classic\theme-neptune,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\packages\font-awesome,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\packages\font-ext,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\ext\classic\theme-triton
+                    package.sass.dynamic : true                                              
+                        package.sass.etc : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/etc/all.scss,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/classic/sass/etc/all.scss
+                  package.sass.namespace : CoomuceMod                                        
+                        package.sass.src : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/src,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/classic/sass/src
+                        package.sass.var : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/var,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/classic/sass/var
+    package.slicer.js.0.isWidgetManifest : true                                              
+                package.slicer.js.0.path : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/sass/example/custom.js
+                package.slicer.js.length : 1                                                 
+                     package.subpkgs.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\packages\local\CoomuceMod/packages
+                         package.summary : Short summary                                     
+                           package.theme : theme-triton                                      
+                         package.toolkit : classic                                           
+                            package.type : code                                              
+                         package.version : 1.0.0                                             
+                          repo.local.dir : C:\Users\NorteTic SAS\bin\Sencha\Cmd\repo         
+        system.java.net.useSystemProxies : true                                              
+                              theme.name : theme-triton                                      
+                            toolkit.name : classic                                           
+                          workspace.apps : Coomuce                                           
+                        workspace.apps.0 : Coomuce                                           
+                   workspace.apps.length : 1                                                 
+                     workspace.build.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/build
+                   workspace.cmd.version : 6.0.2.14                                          
+                    workspace.config.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb\.sencha\workspace
+                           workspace.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb
+                  workspace.packages.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/packages/local,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/packages
+              workspace.packages.extract : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/packages/remote
+                     workspace.theme.dir : E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/packages/local,E:\PROYECTO MULTIACTIVA\VisualStudioSolution\RESPALDO\Coomuce\Coomuce\Solution\Coomuce.SitioWeb/packages/${args.themeName}
+
+Exception information:
+=======================
+java.lang.NullPointerException
+     at java.io.File.<init>(Unknown Source)
+     at com.sencha.util.FileUtil.readFile(FileUtil.java:157)
+     at com.sencha.tools.compiler.jsb.projects.JsbBuilder.processBuild(JsbBuilder.java:29)
+     at com.sencha.command.build.JsbCommand.execute(JsbCommand.java:15)
+     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+     at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+     at java.lang.reflect.Method.invoke(Unknown Source)
+     at com.sencha.util.MethodInvoker$Arguments.invoke(MethodInvoker.java:175)
+     at com.sencha.cli.Command.dispatch(Command.java:43)
+     at com.sencha.cli.Commands.dispatch(Commands.java:64)
+     at com.sencha.command.Sencha.dispatch(Sencha.java:74)
+     at com.sencha.command.Sencha.main(Sencha.java:142)
+     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+     at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+     at java.lang.reflect.Method.invoke(Unknown Source)
+     at com.exe4j.runtime.LauncherEngine.launch(Unknown Source)
+     at com.exe4j.runtime.WinLauncher.main(Unknown Source)
+     at com.install4j.runtime.launcher.WinLauncher.main(Unknown Source)
+

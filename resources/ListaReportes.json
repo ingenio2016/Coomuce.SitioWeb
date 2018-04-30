@@ -1,0 +1,124 @@
+﻿{
+    "data": [
+        {
+            "nombreReporte": "Condición Discapacidad",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.CondicionDiscapacidad",
+            "idReporte": 1 
+        },
+        {
+            "nombreReporte": "Declaración Autorización", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.DeclaracionAutorizacion",
+            "idReporte": 2
+        },
+        {
+            "nombreReporte": "Grupo Poblacional", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.GrupoPoblacional",
+            "idReporte": 3  
+        },
+        {
+            "nombreReporte": "Motivo Traslado", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.MotivoTraslado",
+            "idReporte": 4  
+        },
+        {
+            "nombreReporte": "Ciclo Vital", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.CicloVital",
+            "idReporte": 5  
+        },
+        {
+            "nombreReporte": "Condiciones Vivienda", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.CondicionesVivienda",
+            "idReporte": 6  
+        },
+        {
+            "nombreReporte": "Factor Riesgo", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.FactorRiesgo",
+            "idReporte": 7  
+        },
+        {
+            "nombreReporte": "Grupos de Interes", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.GrupoInteres",
+            "idReporte": 8  
+        },
+        {
+            "nombreReporte": "Motivo de Consulta", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.MotivoConsulta",
+            "idReporte": 9  
+        },
+        {
+            "nombreReporte": "Motivo de Contacto", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.MotivoContacto",
+            "idReporte": 10  
+        },
+        {
+            "nombreReporte": "Piezas Informativas", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.PiezasInformativas",
+            "idReporte": 11  
+        },
+        {
+            "nombreReporte": "Programas Resolución 412", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.ProgramasResolucion412",
+            "idReporte": 12  
+        },
+        {
+            "nombreReporte": "Seguimiento Programas Intervención Riesgo", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.SeguimientoProgramasIntervencionRiesgo",
+            "idReporte": 13  
+        },
+        {
+            "nombreReporte": "Grupos Focales", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.GruposFocales",
+            "idReporte": 14  
+        },
+        {
+            "nombreReporte": "IPS", 
+            "vista": "CoomuceMod.view.Reportes.Interfaces.Ips",
+            "idReporte": 15  
+        },
+        {
+            "nombreReporte": "Eje, Unidad, Modulo",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.EjeUnidadModulo",
+            "idReporte": 16
+        },
+        {
+            "nombreReporte": "Gestión de Formatos",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.GestionFormatos",
+            "idReporte": 17
+        },
+        {
+            "nombreReporte": "Reporte Gestantes",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.ReporteGestantes",
+            "idReporte": 18
+        },
+        {
+            "nombreReporte": "Consolidad Ficha de Identificación",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.FichaIdentificacion",
+            "idReporte": 19
+        },
+        {
+            "nombreReporte": "Consolidado Historia Familiar",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.ConsolidadoFactorRiesgo",
+            "idReporte": 20
+        },
+        {
+            "nombreReporte": "Reporte Findrisk",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.Findrisk",
+            "idReporte": 21
+        },
+        {
+            "nombreReporte": "Reporte Framinghan",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.Framigham",
+            "idReporte": 22
+        },
+        {
+            "nombreReporte": "Consolidado Planilla Única",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.ConsolidadoPlanillaUnica",
+            "idReporte": 23
+        },
+        {
+            "nombreReporte": "Consolidado Asistencia General",
+            "vista": "CoomuceMod.view.Reportes.Interfaces.ConsolidadoAsistenciaGeneral",
+            "idReporte": 24
+        }
+    ]
+}

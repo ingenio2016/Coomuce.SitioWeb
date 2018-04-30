@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "nombreReporte": "Ficha de Identificación",
+            "vista": "CoomuceMod.view.ReportesIndividuales.Interfaces.FichaIdentificacion",
+            "idReporte": 25 
+        },
+        {
+            "nombreReporte": "Historia Familiar", 
+            "vista": "CoomuceMod.view.ReportesIndividuales.Interfaces.ConsolidadoFactorRiesgo",
+            "idReporte": 26
+        },
+        {
+            "nombreReporte": "Planilla Unica de Registro", 
+            "vista": "CoomuceMod.view.ReportesIndividuales.Interfaces.ConsolidadoPlanillaUnica",
+            "idReporte": 27
+        },
+        {
+            "nombreReporte": "Listado de Asistencia General", 
+            "vista": "CoomuceMod.view.ReportesIndividuales.Interfaces.ConsolidadoAsistenciaGeneral",
+            "idReporte": 28
+        }
+    ]
+}
