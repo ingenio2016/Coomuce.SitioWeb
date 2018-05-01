@@ -863,6 +863,16 @@
                                         ],
                                         title: "VII. DECLARACION Y AUTORIZACIONES"
                                     },
+                                    /*{
+                                        xtype: 'filefield',
+                                        name: 'photo',
+                                        fieldLabel: 'Firma',
+                                        labelWidth: 50,
+                                        msgTarget: 'side',
+                                        allowBlank: false,
+                                        anchor: '100%',
+                                        buttonText: 'Cargar Archivo'
+                                    }*/
                                     {
                                         xtype: "fieldset",
                                         bodyPadding: 10,
@@ -871,9 +881,15 @@
                                         },
                                         items: [
                                         {
+                                            xtype: "fieldset",
+                                            bodyPadding: 10,
+                                            layout: {
+                                                type: "hbox"
+                                            },
                                             items: [
                                             {
                                                 xtype: 'uploader',
+                                                fieldLabel: "Firma",
                                                 uploadConfig: {
                                                     uploadUrl: Coomuce.Url.Funciones + "ImportarFirma",
                                                     maxFileSize: 10 * 1024 * 1024
@@ -883,11 +899,7 @@
                                                     'uploaddatacomplete': "onUploadFirmaDataComplete",
                                                     'uploaderror': "onUploadFirmaError"
                                                 }
-                                            }
-                                            ]
-                                        },
-                                        {
-                                            items: [
+                                            },
                                             { xtype: "textfield", name: "firmaNovedad", hidden: true, reference: "firmaNovedad" },
                                             {
                                                 xtype: "button",
@@ -897,91 +909,87 @@
                                                 reference: "botonEliminarFirma",
                                                 width: 250
                                             }
-                                            ]
+                                            ],
+                                            title: "El cotizante, beneficiario o cabeza de familia"
                                         }
                                         ],
-                                        title: "VII. FIRMAS"
-                //},
-                //{
-                //    xtype: "fieldset",
-                //    defaults: {
-                //        allowBlank: false,
-                //        anchor: "100%"
-                //    },
-                //    items: [
-                //        {
-                //            xtype: "label",
-                //            html: "<b>Identificación de la entidad territorial</b>"
-                //        },
-                //        {
-                //            xtype: "combo",
-                //            bind: {
-                //                store: "{getDepartamento}"
-                //            },
-                //            ciudadReference: "idCiudadfX",
-                //            displayField: "compDepartamento",
-                //            editable: false,
-                //            fieldLabel: "Departamento",
-                //            listeners: {
-                //                select: "onSelectCombo"
-                //            },
-                //            name: "idDepartamento",
-                //            queryMode: "local",
-                //            ubicacion: true,
-                //            valueField: "idDepartamento"
-                //        },
-                //        {
-                //            xtype: "combo",
-                //            bind: {
-                //                store: "{getCiudad}"
-                //            },
-                //            displayField: "compCiudad",
-                //            editable: false,
-                //            fieldLabel: "Municipio",
-                //            name: "idCiudadX",
-                //            queryMode: "local",
-                //            reference: "idCiudadfX",
-                //            valueField: "idCiudad"
-                //        },
-                //        {
-                //            xtype: "label",
-                //            html: "<b>Datos del SISBEN</b>"
-                //        },
-                //        {
-                //            xtype: "textfield",
-                //            fieldLabel: "Número de Ficha",
-                //            name: "numFichaSisbenFuanEntidadTerritorial"
-                //        },
-                //        {
-                //            xtype: "numberfield",
-                //            fieldLabel: "Puntaje",
-                //            name: "puntajeSisbenFuanEntidadTerritorial"
-                //        },
-                //        {
-                //            xtype: "numberfield",
-                //            fieldLabel: "Nivel",
-                //            name: "nivelSisbenFuanEntidadTerritorial"
-                //        },
-                //        {
-                //            xtype: "datefield",
-                //            fieldLabel: "Fecha radicación",
-                //            name: "fechaRadicacionFuanEntidadTerritorial"
-                //        },
-                //        {
-                //            xtype: "datefield",
-                //            fieldLabel: "Fecha de validación",
-                //            name: "fechaValidacionFuanEntidadTerritorial"
-                //        },
-                //        { xtype: "numberfield", hidden: true, value: Coomuce.Util.DatosUsuario.idUsuario },
-                //        {
-                //            xtype: "textarea",
-                //            fieldLabel: "Observaciones",
-                //            name: "observacionFuanEntidadTerritorial"
-                //        }
-                //    ],
-                //    title: "X. DATOS A SER DILIGENCIADOS POR LA ENTIDAD TERRITORIAL"
-            }
-            ]
-        }
-        ]
-    });
+                                        title: "VIII. FIRMAS"
+                                    },
+                                    {
+                                        xtype: "fieldset",
+                                        bodyPadding: 10,
+                                        layout: {
+                                            type: "vbox"
+                                        },
+                                        items: [
+                                        {
+                                            xtype: "fieldset",
+                                            bodyPadding: 10,
+                                            layout: {
+                                                type: "hbox"
+                                            },
+                                            items: [
+                                            {
+                                                xtype: 'uploader',
+                                                fieldLabel: "Documento",
+                                                uploadConfig: {
+                                                    uploadUrl: Coomuce.Url.Funciones + "ImportarDocumento",
+                                                    maxFileSize: 10 * 1024 * 1024
+                                                },
+                                                inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                                listeners: {
+                                                    'uploaddatacomplete': "onUploadDocumentoDataComplete",
+                                                    'uploaderror': "onUploadFirmaError"
+                                                }
+                                            },
+                                            { xtype: "textfield", name: "documentoNovedad", hidden: true, reference: "documentoNovedad" },
+                                            {
+                                                xtype: "button",
+                                                iconCls: "x-fa fa-minus-circle",
+                                                textAlign: "left",
+                                                handler: "onBotonEliminarDocumentoClick",
+                                                reference: "botonEliminarDocumento",
+                                                width: 250
+                                            }
+                                            ],
+                                            title: "Anexo copia del documento de Identidad"
+                                        },
+                                        {
+                                            xtype: "fieldset",
+                                            bodyPadding: 10,
+                                            layout: {
+                                                type: "hbox"
+                                            },
+                                            items: [
+                                            {
+                                                xtype: 'uploader',
+                                                fieldLabel: "IncapacidadPermanente",
+                                                uploadConfig: {
+                                                    uploadUrl: Coomuce.Url.Funciones + "ImportarIncapacidadPermanente",
+                                                    maxFileSize: 10 * 1024 * 1024
+                                                },
+                                                inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                                listeners: {
+                                                    'uploaddatacomplete': "onUploadIncapacidadPermanenteDataComplete",
+                                                    'uploaderror': "onUploadFirmaError"
+                                                }
+                                            },
+                                            { xtype: "textfield", name: "incapacidadPermanenteNovedad", hidden: true, reference: "incapacidadPermanenteNovedad" },
+                                            {
+                                                xtype: "button",
+                                                iconCls: "x-fa fa-minus-circle",
+                                                textAlign: "left",
+                                                handler: "onBotonEliminarIncapacidadPermanenteClick",
+                                                reference: "botonEliminarIncapacidadPermanente",
+                                                width: 250
+                                            }
+                                            ],
+                                            title: "Copia del dictamen de incapacidad permanente <br /> emitido por la autoridad competente"
+                                        }
+                                        ],
+                                        title: "IX. ANEXOS"
+                                    }
+                                    ]
+                                }
+                                ]
+                            });

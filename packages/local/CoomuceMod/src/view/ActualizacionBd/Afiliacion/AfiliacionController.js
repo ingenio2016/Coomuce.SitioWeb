@@ -195,7 +195,8 @@
                     idTipoAfiliado: infoForm.idTipoAfiliado,
                     idTipoCotizante: infoForm.idTipoCotizante,
                     codigoCotizanteFuan: infoForm.codigoCotizanteFuan,
-                    idUsuario: Coomuce.Util.DatosUsuario.idUsuario
+                    idUsuario: Coomuce.Util.DatosUsuario.idUsuario,
+                    firmaAfiliado: infoForm["firmaNovedad"],
                 };
 
                 var afiliados = [];
@@ -329,6 +330,28 @@
         Coomuce.Util.ShowMessage({ type: "INFO", title: titleView, msg: "Archivo de firma importado correctamente." });
     },
 
+    onUploadDocumentoDataComplete: function (source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarDocumento");
+        var documentoNovedad = this.lookupReference("documentoNovedad");
+
+        botonEliminar.setText(file.data);
+        documentoNovedad.setValue(file.data);
+
+        Coomuce.Util.ShowMessage({ type: "INFO", title: titleView, msg: "Documento importado correctamente." });
+    },
+
+    onUploadIncapacidadPermanenteDataComplete: function (source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarIncapacidadPermanente");
+        var incapacidadPermanenteNovedad = this.lookupReference("incapacidadPermanenteNovedad");
+
+        botonEliminar.setText(file.data);
+        incapacidadPermanenteNovedad.setValue(file.data);
+
+        Coomuce.Util.ShowMessage({ type: "INFO", title: titleView, msg: "Documento importado correctamente." });
+    },
+
     onUploadFirmaError: function (src, data) {
         var me = this;
         var titleView = me.getTitleView();
@@ -355,6 +378,20 @@
 
         var firmaNovedad = this.lookupReference("firmaNovedad");
         firmaNovedad.setValue("");
+    },
+
+    onBotonEliminarDocumentoClick: function (btn) {
+        btn.setText("");
+
+        var documentoNovedad = this.lookupReference("documentoNovedad");
+        documentoNovedad.setValue("");
+    },
+
+    onBotonEliminarIncapacidadPermanenteClick: function (btn) {
+        btn.setText("");
+
+        var incapacidadPermanenteNovedad = this.lookupReference("incapacidadPermanenteNovedad");
+        incapacidadPermanenteNovedad.setValue("");
     }
 
 });
