@@ -1,5 +1,5 @@
 $app-name:  dynamic( 'Coomuce' );
-$image-search-path: 'C:/Users/24 RO11LA/Documents/DesarrolloMA/cmaBackend/Coomuce.SitioWeb/build/development/Coomuce/resources';
+$image-search-path: 'E:/PROYECTO MULTIACTIVA/VisualStudioSolution/REPOSITORIO/FinalRepo/RepoBack/Coomuce.SitioWeb/build/development/Coomuce/resources';
 $theme-name:  dynamic( 'theme-triton' );
 $include-coomuce-application: dynamic(true);;
 $include-coomuce-url: dynamic(true);;

@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Users\24 RO11LA\Documents\DesarrolloMA\cmaBackend\Coomuce.SitioWeb\app.js
+// @require E:\PROYECTO MULTIACTIVA\VisualStudioSolution\REPOSITORIO\FinalRepo\RepoBack\Coomuce.SitioWeb\app.js

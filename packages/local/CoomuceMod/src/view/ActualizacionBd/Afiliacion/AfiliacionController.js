@@ -23,8 +23,16 @@
 
     onSelectionChange: function (sm, selected, eOpts) {
         var me = this;
-        console.log(sm);
-        console.log(selected);
+        var selectedAuths = sm.selected.items;
+        var storeAuth = Ext.getStore("declaracionAutorizacionStore").data.items;
+        _.forEach(storeAuth, function(item) {
+            item.data.valorFuanDeclaracionAutorizacion = false;
+            _.forEach(selectedAuths, function(auth) {
+                if(auth.data.idDeclaracionAutorizacion == item.data.idDeclaracionAutorizacion){
+                    item.data.valorFuanDeclaracionAutorizacion = true;
+                }
+            })
+        })
     },
 
     onBlurNumber: function (number, event, eOpts) {
