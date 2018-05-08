@@ -2060,6 +2060,12 @@ Ext.define("CoomuceMod.model.Parametros.ParticipacionSocial.Unidad", {
 Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
     extend: "Ext.app.ViewController",
     alias: "controller.actualizacionbd-afiliacion",
+    onAfterRender: function() {
+        //var salarioBasico = Ext.getStore("confDataStore").data.items;
+        var salarioControl = this.lookupReference("ibcFuanAfiliado");
+        console.log(Coomuce.Util.DatosUsuario.salarioMinimo);
+        salarioControl.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
+    },
     getTitleView: function() {
         return this.getView().getTitle();
     },
@@ -2093,6 +2099,9 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
     onBlurNumber: function(number, event, eOpts) {
         number.setRawValue(Ext.util.Format.usMoney(number.getValue()));
     },
+    onDecimalNumber: function(number, event, eOpts) {
+        number.setRawValue(Ext.util.Format.decimals(number.getValue()));
+    },
     onSelectCombo: function(combo, record, eOpts) {
         var me = this;
         if (combo.ubicacion !== undefined) {
@@ -2105,7 +2114,12 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         } else if (combo.regimen) {
             for (var i = 0; i < combo.componentReference.length; i++) {
                 var o = me.lookupReference(combo.componentReference[i]);
+                o.setValue(null);
                 o.setReadOnly(record.get("idTipoRegimen") == 1 ? false : true);
+                if (record.get("idTipoRegimen") == 1) {
+                    var salario = this.lookupReference("ibcFuanAfiliado");
+                    salario.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
+                }
             }
         } else {
             var rec = Ext.getCmp("Grid-Beneficiarios").selModel.getSelection();
@@ -2227,6 +2241,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
             if (btn === "yes") {
                 var form = Ext.getCmp("Form-Afiliacion");
                 var infoForm = form.getForm().getValues();
+                console.log(infoForm);
                 var infoFuan = {
                         idFuan: 0,
                         // inicializo este campo que no se captura en pantalla
@@ -2236,9 +2251,24 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                         idTipoAfiliado: infoForm.idTipoAfiliado,
                         idTipoCotizante: infoForm.idTipoCotizante,
                         codigoCotizanteFuan: infoForm.codigoCotizanteFuan,
-                        idUsuario: Coomuce.Util.DatosUsuario.idUsuario,
-                        firmaAfiliado: infoForm["firmaNovedad"]
+                        idUsuario: Coomuce.Util.DatosUsuario.idUsuario
                     };
+                if (infoFuan.idTipoAfiliacion == "" || infoFuan.idTipoAfiliado == "" || infoFuan.idTipoCotizante == "" || infoFuan.idTipoRegimen == "") {
+                    Coomuce.Util.ShowMessage({
+                        type: "ATENCION",
+                        title: titleView,
+                        msg: "Débe completar correctamente la sección 1. DATOS DEL TRAMITE para continuar"
+                    });
+                    return false;
+                }
+                if (infoForm.primerApellidoFuanAfiliado == "" || infoForm.primerNombreFuanAfiliado == "" || infoForm.idTipoIdentificacionII == "" || infoForm.identificacionFuanAfiliado == "" || infoForm.idTipoSexoII == "" || infoForm.fechaNacimientoFuanAfiliado == "") {
+                    Coomuce.Util.ShowMessage({
+                        type: "ATENCION",
+                        title: titleView,
+                        msg: "Débe completar correctamente la sección 2. DATOS BÁSICOS DE IDENTIFICACIÓN para continuar"
+                    });
+                    return false;
+                }
                 var afiliados = [];
                 afiliados.push({
                     idFuanAfiliado: 0,
@@ -2274,11 +2304,13 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     segundoNombreConyugueFuanAfiliado: infoForm.segundoNombreConyugueFuanAfiliado,
                     idTipoIdentificacionConyugue: (infoForm.idTipoIdentificacionConyugue != null) ? infoForm.idTipoIdentificacionConyugue : null,
                     identificacionConyugueFuanAfiliado: infoForm.identificacionConyugueFuanAfiliado,
-                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugue != null) ? infoForm.idTipoSexoConyugue : null,
+                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugueFuanAfiliado != null) ? infoForm.idTipoSexoConyugueFuanAfiliado : null,
                     fechaNacimientoConyugueFuanAfiliado: infoForm.fechaNacimientoConyugueFuanAfiliado,
                     upcFuanAfiliado: 0,
                     cabezafamilia: 1,
-                    grupofamiliar: infoForm.identificacionFuanAfiliado
+                    grupofamiliar: infoForm.identificacionFuanAfiliado,
+                    firmaFuanAfiliado: infoForm["firmaNovedad"],
+                    identificacionAnexo: infoForm["documentoNovedad"]
                 });
                 /*var entidadTerritorial = {
                     idFuan: 0, 
@@ -2322,6 +2354,26 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     var dato = ob.data;
                     declaracion.push(dato);
                 });
+                var anexos = {
+                        totalAnexo56FuanAnexos: infoForm.TotalQuantity,
+                        totalAnexo56CNFuanAnexos: infoForm.CNQuantity,
+                        totalAnexo56RCFuanAnexos: infoForm.RCQuantity,
+                        totalAnexo56TIFuanAnexos: infoForm.TIQuantity,
+                        totalAnexo56CCFuanAnexos: infoForm.CCQuantity,
+                        totalAnexo56PAFuanAnexos: infoForm.PAQuantity,
+                        totalAnexo56CEFuanAnexos: infoForm.CEQuantity,
+                        totalAnexo56CDFuanAnexos: infoForm.CDQuantity,
+                        totalAnexo56CSFuanAnexos: infoForm.CSQuantity,
+                        anexo57: infoForm["incapacidadPermanenteNovedad"],
+                        anexo58: infoForm["registroCivilNovedad"],
+                        anexo59: infoForm["escrituraPublicaNovedad"],
+                        anexo60: infoForm["certificadoAdopcionNovedad"],
+                        anexo61: infoForm["ordenJudicialNovedad"],
+                        anexo62: infoForm["perdidaPPNovedad"],
+                        anexo63: infoForm["authTrasladoNovedad"],
+                        anexo64: infoForm["certificadoVinculacionNovedad"],
+                        anexo65: infoForm["actoAdministrativoNovedad"]
+                    };
                 var conf = {
                         url: Coomuce.Url.Funciones + "AfiliacionGuardar",
                         data: {
@@ -2329,7 +2381,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                             afiliado: afiliados,
                             ips: ips,
                             declaracion: declaracion,
-                            //entidadTerritorial: entidadTerritorial,
+                            anexos: anexos,
                             empleador: empleador
                         },
                         targetMask: form,
@@ -2348,6 +2400,61 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         var tabPanel = Ext.getCmp("CoomuceAfiliacion");
         tabPanel.destroy();
     },
+    onUploadDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var record = source.getWidgetRecord();
+        var tipoDocVar = record.get("idTipoIdentificacion");
+        record.set("identificacionAnexo", file.data);
+        if (tipoDocVar != null) {
+            if (tipoDocVar == 1) {
+                var cnq = this.lookupReference("CNQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 2) {
+                var cnq = this.lookupReference("RCQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 3) {
+                var cnq = this.lookupReference("TIQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 4) {
+                var cnq = this.lookupReference("CCQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 5) {
+                var cnq = this.lookupReference("CEQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 6) {
+                var cnq = this.lookupReference("PAQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 7) {
+                var cnq = this.lookupReference("CDQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+        }
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Archivo de firma importado correctamente."
+        });
+    },
     onUploadFirmaDataComplete: function(source, file) {
         var titleView = this.getTitleView();
         var botonEliminar = this.lookupReference("botonEliminarFirma");
@@ -2361,9 +2468,57 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         });
     },
     onUploadDocumentoDataComplete: function(source, file) {
+        var tipoDocVar = this.lookupReference("idTipoIdentificacionII").getValue();
         var titleView = this.getTitleView();
         var botonEliminar = this.lookupReference("botonEliminarDocumento");
         var documentoNovedad = this.lookupReference("documentoNovedad");
+        if (tipoDocVar != null) {
+            if (tipoDocVar == 1) {
+                var cnq = this.lookupReference("CNQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 2) {
+                var cnq = this.lookupReference("RCQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 3) {
+                var cnq = this.lookupReference("TIQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 4) {
+                var cnq = this.lookupReference("CCQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 5) {
+                var cnq = this.lookupReference("CEQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 6) {
+                var cnq = this.lookupReference("PAQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+            if (tipoDocVar == 7) {
+                var cnq = this.lookupReference("CDQuantity");
+                var total = this.lookupReference("TotalQuantity");
+                cnq.setValue(cnq.getValue() + 1);
+                total.setValue(total.getValue() + 1);
+            }
+        }
+        //Aumento el contador del documento de identidad
+        //var tipoDoc = this.lookupReference("idTipoIdentificacion");
+        //console.log(tipoDoc.getValue());
         botonEliminar.setText(file.data);
         documentoNovedad.setValue(file.data);
         Coomuce.Util.ShowMessage({
@@ -2378,6 +2533,102 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         var incapacidadPermanenteNovedad = this.lookupReference("incapacidadPermanenteNovedad");
         botonEliminar.setText(file.data);
         incapacidadPermanenteNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadEscrituraPublicaDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarEscrituraPublica");
+        var escrituraPublicaNovedad = this.lookupReference("escrituraPublicaNovedad");
+        botonEliminar.setText(file.data);
+        escrituraPublicaNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadOrdenJudicialDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarOrdenJudicial");
+        var ordenJudicialNovedad = this.lookupReference("ordenJudicialNovedad");
+        botonEliminar.setText(file.data);
+        ordenJudicialNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadCertificadoAdopcionDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarCertificadoAdopcion");
+        var certificadoAdopcionNovedad = this.lookupReference("certificadoAdopcionNovedad");
+        botonEliminar.setText(file.data);
+        certificadoAdopcionNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadPerdidaPPDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarPerdidaPP");
+        var perdidaPPNovedad = this.lookupReference("perdidaPPNovedad");
+        botonEliminar.setText(file.data);
+        perdidaPPNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadAuthTrasladoDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarAuthTraslado");
+        var authTrasladoNovedad = this.lookupReference("authTrasladoNovedad");
+        botonEliminar.setText(file.data);
+        authTrasladoNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadCertificadoVinculacionDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarCertificadoVinculacion");
+        var certificadoVinculacionNovedad = this.lookupReference("certificadoVinculacionNovedad");
+        botonEliminar.setText(file.data);
+        certificadoVinculacionNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadActoAdministrativoDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarActoAdministrativo");
+        var actoAdministrativoNovedad = this.lookupReference("actoAdministrativoNovedad");
+        botonEliminar.setText(file.data);
+        actoAdministrativoNovedad.setValue(file.data);
+        Coomuce.Util.ShowMessage({
+            type: "INFO",
+            title: titleView,
+            msg: "Documento importado correctamente."
+        });
+    },
+    onUploadRegistroCivilDataComplete: function(source, file) {
+        var titleView = this.getTitleView();
+        var botonEliminar = this.lookupReference("botonEliminarRegistroCivil");
+        var registroCivilNovedad = this.lookupReference("registroCivilNovedad");
+        botonEliminar.setText(file.data);
+        registroCivilNovedad.setValue(file.data);
         Coomuce.Util.ShowMessage({
             type: "INFO",
             title: titleView,
@@ -2416,6 +2667,46 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
         btn.setText("");
         var incapacidadPermanenteNovedad = this.lookupReference("incapacidadPermanenteNovedad");
         incapacidadPermanenteNovedad.setValue("");
+    },
+    onBotonEliminarEscrituraPublicaClick: function(btn) {
+        btn.setText("");
+        var escrituraPublicaNovedad = this.lookupReference("escrituraPublicaNovedad");
+        escrituraPublicaNovedad.setValue("");
+    },
+    onBotonEliminarCertificadoAdopcionClick: function(btn) {
+        btn.setText("");
+        var certificadoAdopcionNovedad = this.lookupReference("certificadoAdopcionNovedad");
+        certificadoAdopcionNovedad.setValue("");
+    },
+    onBotonEliminarOrdenJudicialClick: function(btn) {
+        btn.setText("");
+        var ordenJudicialNovedad = this.lookupReference("ordenJudicialNovedad");
+        ordenJudicialNovedad.setValue("");
+    },
+    onBotonEliminarPerdidaPPClick: function(btn) {
+        btn.setText("");
+        var perdidaPPNovedad = this.lookupReference("perdidaPPNovedad");
+        perdidaPPNovedad.setValue("");
+    },
+    onBotonEliminarAuthTrasladoClick: function(btn) {
+        btn.setText("");
+        var authTrasladoNovedad = this.lookupReference("authTrasladoNovedad");
+        authTrasladoNovedad.setValue("");
+    },
+    onBotonEliminarCertificadoVinculacionClick: function(btn) {
+        btn.setText("");
+        var autorizacionTrasladoNovedad = this.lookupReference("certificadoVinculacionNovedad");
+        certificadoVinculacionNovedad.setValue("");
+    },
+    onBotonEliminarActoAdministrativoClick: function(btn) {
+        btn.setText("");
+        var actoAdministrativoNovedad = this.lookupReference("actoAdministrativoNovedad");
+        actoAdministrativoNovedad.setValue("");
+    },
+    onBotonEliminarRegistroCivilClick: function(btn) {
+        btn.setText("");
+        var registroCivilNovedad = this.lookupReference("registroCivilNovedad");
+        registroCivilNovedad.setValue("");
     }
 });
 
@@ -2588,6 +2879,34 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionModel", {
                 }
             }
         },
+        getArl: {
+            autoLoad: true,
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Funciones + "GetArlAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
+        },
+        getAfp: {
+            autoLoad: true,
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Funciones + "GetAfpAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
+        },
         getCiudad: {
             autoLoad: false,
             model: "CoomuceMod.model.Administracion.Ciudad",
@@ -2734,7 +3053,8 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionModel", {
                 "idTipoZona",
                 "compTipoZona",
                 "telefonoFuanBeneficiariosAfiliado",
-                "upcFuanBeneficiariosAfiliado"
+                "upcFuanBeneficiariosAfiliado",
+                "firmaBeneficiario"
             ]
         },
         setFuanIpsPrimaria: {
@@ -2742,8 +3062,36 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionModel", {
             fields: [
                 "tipoFuanIpsPrimariaAfiliado",
                 "nombreCompletoIps",
+                "nombreFuanIpsPrimariaAfiliado",
                 "codigoFuanIpsPrimariaAfiliado"
             ]
+        },
+        getConfData: {
+            storeId: "confDataStore",
+            autoLoad: true,
+            fields: [
+                "idConfiguracionGeneral",
+                "tiempoInactividadConfiguracionGeneral",
+                "salarioConfiguracionGeneral",
+                "emailSalienteConfiguracionGeneral",
+                "pswEmailConfiguracionGeneral",
+                "ccConfiguracionGeneral",
+                "csConfiguracionGeneral",
+                "hostConfiguracionGeneral",
+                "portConfiguracionGeneral",
+                "sslConfiguracionGeneral"
+            ],
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Administracion + "GetConfiguracionGeneralAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
         }
     }
 });
@@ -2759,6 +3107,9 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
         type: "actualizacionbd-afiliacion"
     },
     layout: "fit",
+    listeners: {
+        afterrender: "onAfterRender"
+    },
     dockedItems: [
         {
             xtype: 'toolbar',
@@ -2865,7 +3216,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                             xtype: "textfield",
                             fieldLabel: "Código<br />(A registrar por la EPS.)",
                             name: "codigoCotizanteFuan",
-                            value: "0"
+                            value: ""
                         }
                     ],
                     title: "I. DATOS DEL TRAMITE"
@@ -2909,6 +3260,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                             editable: false,
                             fieldLabel: "Tipo documento de identidad",
                             name: "idTipoIdentificacionII",
+                            reference: "idTipoIdentificacionII",
                             queryMode: "local",
                             valueField: "idTipoIdentificacion"
                         },
@@ -2989,8 +3341,11 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                             valueField: "idCondicionDiscapacidad"
                         },
                         {
-                            xtype: "numberfield",
+                            xtype: "textfield",
                             fieldLabel: "Puntaje SISBEN",
+                            listeners: {
+                                blur: "onDecimalNumber"
+                            },
                             name: "puntajeSisbenFuanAfiliado"
                         },
                         {
@@ -3011,26 +3366,37 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                             valueField: "idGrupoPoblacional"
                         },
                         {
-                            xtype: "textfield",
-                            allowBlank: true,
+                            xtype: "combo",
+                            bind: {
+                                store: "{getArl}"
+                            },
+                            displayField: "nombreCompleto",
+                            editable: false,
                             fieldLabel: "Administradora de Riesgos Laborales - ARL",
                             name: "arlFuanAfiliado",
-                            readOnly: true,
-                            reference: "arlFuanAfiliado"
+                            reference: "arlFuanAfiliado",
+                            queryMode: "local",
+                            valueField: "Id",
+                            allowBlank: true
                         },
                         {
-                            xtype: "textfield",
-                            allowBlank: true,
+                            xtype: "combo",
+                            bind: {
+                                store: "{getAfp}"
+                            },
+                            displayField: "nombreCompleto",
+                            editable: false,
                             fieldLabel: "Administradora de Pensiones",
                             name: "pensionFuanAfiliado",
-                            readOnly: true,
-                            reference: "pensionFuanAfiliado"
+                            reference: "pensionFuanAfiliado",
+                            queryMode: "local",
+                            valueField: "Id",
+                            allowBlank: true
                         },
                         {
                             xtype: "numberfield",
                             allowBlank: true,
                             fieldLabel: "Ingreso Base de Cotización - IBC",
-                            hideTrigger: true,
                             listeners: {
                                 blur: "onBlurNumber"
                             },
@@ -3487,6 +3853,35 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                                                         xtype: "numberfield",
                                                         decimalPrecision: 0
                                                     }
+                                                },
+                                                {
+                                                    xtype: "widgetcolumn",
+                                                    header: "",
+                                                    width: 60,
+                                                    widget: {
+                                                        xtype: 'uploader',
+                                                        uploadConfig: {
+                                                            uploadUrl: Coomuce.Url.Funciones + "ImportarFirma",
+                                                            maxFileSize: 10 * 1024 * 1024
+                                                        },
+                                                        inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                                        listeners: {
+                                                            'uploaddatacomplete': "onUploadDataComplete",
+                                                            'uploaderror': "onUploadError"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    xtype: "widgetcolumn",
+                                                    dataIndex: "identificacionAnexo",
+                                                    header: "Anexo documento",
+                                                    width: 200,
+                                                    widget: {
+                                                        xtype: "button",
+                                                        iconCls: "x-fa fa-minus-circle",
+                                                        textAlign: "left",
+                                                        handler: "onBotonEliminarArchivoClick"
+                                                    }
                                                 }
                                             ]
                                         }
@@ -3572,7 +3967,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                                     header: "Código de la IPS<br />(A registrar por la EPS)",
                                     width: 300,
                                     editor: {
-                                        allowBlank: false
+                                        allowBlank: true
                                     }
                                 },
                                 {
@@ -3776,6 +4171,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                     items: [
                         {
                             xtype: "fieldset",
+                            width: 1000,
                             bodyPadding: 10,
                             layout: {
                                 type: "hbox"
@@ -3824,6 +4220,108 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                         {
                             xtype: "fieldset",
                             bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "CN",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "CNQuantity",
+                                    reference: "CNQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "RC",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "RCQuantity",
+                                    reference: "RCQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "TI",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "TIQuantity",
+                                    reference: "TIQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "CC",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "CCQuantity",
+                                    reference: "CCQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "PA",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "PAQuantity",
+                                    reference: "PAQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "CE",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "CEQuantity",
+                                    reference: "CEQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "CD",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "CDQuantity",
+                                    reference: "CDQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "CS",
+                                    labelWidth: 20,
+                                    width: 70,
+                                    name: "CSQuantity",
+                                    reference: "CSQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                },
+                                {
+                                    xtype: "numberfield",
+                                    fieldLabel: "Total",
+                                    labelWidth: 50,
+                                    width: 100,
+                                    name: "TotalQuantity",
+                                    reference: "TotalQuantity",
+                                    readOnly: true,
+                                    value: 0
+                                }
+                            ],
+                            title: "Cantidad:"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
                             layout: {
                                 type: "hbox"
                             },
@@ -3861,6 +4359,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                         {
                             xtype: "fieldset",
                             bodyPadding: 10,
+                            width: 1000,
                             layout: {
                                 type: "hbox"
                             },
@@ -3893,7 +4392,311 @@ Ext.define("CoomuceMod.view.ActualizacionBd.Afiliacion", {
                                     width: 250
                                 }
                             ],
-                            title: "Copia del dictamen de incapacidad permanente <br /> emitido por la autoridad competente"
+                            title: "Copia del dictamen de incapacidad permanente emitido por la autoridad competente"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "RegistroCivil",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarRegistroCivil",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadRegistroCivilDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "registroCivilNovedad",
+                                    hidden: true,
+                                    reference: "registroCivilNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarRegistroCivilClick",
+                                    reference: "botonEliminarRegistroCivil",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia del registro civil de matrimonio, o de la escritura pública, acta de conciliación o sentencia judicial que declare la unión marital"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "EscrituraPublica",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarEscrituraPublica",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadEscrituraPublicaDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "escrituraPublicaNovedad",
+                                    hidden: true,
+                                    reference: "escrituraPublicaNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarEscrituraPublicaClick",
+                                    reference: "botonEliminarEscrituraPublica",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia de la escritura pública o sentencia judicial que declare el divorcio, sentencia judicial que declare la separación de <br />cuerpos y escritura pública, acta de conciliación o acta judicial que declare la terminación de la unión marital"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "CertificadoAdopcion",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarCertificadoAdopcion",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadCertificadoAdopcionDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "certificadoAdopcionNovedad",
+                                    hidden: true,
+                                    reference: "certificadoAdopcionNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarCertificadoAdopcionClick",
+                                    reference: "botonEliminarCertificadoAdopcion",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia del certificado de adopción o acta de entrega del menor"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "OrdenJudicial",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarOrdenJudicial",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadOrdenJudicialDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "ordenJudicialNovedad",
+                                    hidden: true,
+                                    reference: "ordenJudicialNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarOrdenJudicialClick",
+                                    reference: "botonEliminarOrdenJudicial",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia de la órden judicial o del acto administrativo de custodia"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "PerdidaPP",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarPerdidaPP",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadPerdidaPPDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "perdidaPPNovedad",
+                                    hidden: true,
+                                    reference: "perdidaPPNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarPerdidaPPClick",
+                                    reference: "botonEliminarPerdidaPP",
+                                    width: 250
+                                }
+                            ],
+                            title: "Documento en que conste la pérdida de la pátria potestad, o el certificado de defunción de los padres o la declaración suscrita <br />por el cotizante sobre la ausencia de los padres"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "AuthTraslado",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarAuthTraslado",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadAuthTrasladoDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "authTrasladoNovedad",
+                                    hidden: true,
+                                    reference: "authTrasladoNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarAuthTrasladoClick",
+                                    reference: "botonEliminarAuthTraslado",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia de la autorización de traslado por parte de la Superintendencia Nacional de Salúd"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "CertificadoVinculacion",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarCertificadoVinculacion",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadCertificadoVinculacionDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "certificadoVinculacionNovedad",
+                                    hidden: true,
+                                    reference: "certificadoVinculacionNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarCertificadoVinculacionClick",
+                                    reference: "botonEliminarCertificadoVinculacion",
+                                    width: 250
+                                }
+                            ],
+                            title: "Certificado de vinculación a una entidad autorizada para realizar afiliaciones colectivas"
+                        },
+                        {
+                            xtype: "fieldset",
+                            bodyPadding: 10,
+                            width: 1000,
+                            layout: {
+                                type: "hbox"
+                            },
+                            items: [
+                                {
+                                    xtype: 'uploader',
+                                    fieldLabel: "ActoAdministrativo",
+                                    uploadConfig: {
+                                        uploadUrl: Coomuce.Url.Funciones + "ImportarActoAdministrativo",
+                                        maxFileSize: 10 * 1024 * 1024
+                                    },
+                                    inputAttrTpl: "data-qtip='Seleccione el archivo.'",
+                                    listeners: {
+                                        'uploaddatacomplete': "onUploadActoAdministrativoDataComplete",
+                                        'uploaderror': "onUploadFirmaError"
+                                    }
+                                },
+                                {
+                                    xtype: "textfield",
+                                    name: "actoAdministrativoNovedad",
+                                    hidden: true,
+                                    reference: "actoAdministrativoNovedad"
+                                },
+                                {
+                                    xtype: "button",
+                                    iconCls: "x-fa fa-minus-circle",
+                                    textAlign: "left",
+                                    handler: "onBotonEliminarActoAdministrativoClick",
+                                    reference: "botonEliminarActoAdministrativo",
+                                    width: 250
+                                }
+                            ],
+                            title: "Copia del acto administrativo o providencia de las autoridades competentes en la que conste la calidad del beneficiario o se ordene la afiliación de oficio"
                         }
                     ],
                     title: "IX. ANEXOS"
@@ -5107,6 +5910,7 @@ Ext.define("CoomuceMod.view.Administracion.ConfiguracionGeneralModel", {
     alias: "viewmodel.administracion-configuraciongeneral",
     stores: {
         getConfiguracionGeneral: {
+            storeId: "configuracionGeneralStore",
             autoLoad: false,
             fields: [
                 "idConfiguracionGeneral",

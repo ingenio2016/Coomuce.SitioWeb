@@ -4,6 +4,7 @@
 
     stores: {
         getConfiguracionGeneral: {
+            storeId: "configuracionGeneralStore",
             autoLoad: false,
             fields: [
                 "idConfiguracionGeneral", "tiempoInactividadConfiguracionGeneral", "salarioConfiguracionGeneral", "emailSalienteConfiguracionGeneral",

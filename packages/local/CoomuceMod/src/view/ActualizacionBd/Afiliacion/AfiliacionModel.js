@@ -179,6 +179,36 @@
             }
         },
 
+        getArl: {
+            autoLoad: true,
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Funciones + "GetArlAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
+        },
+
+        getAfp: {
+            autoLoad: true,
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Funciones + "GetAfpAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
+        },
+
         getCiudad: {
             autoLoad: false,
             model: "CoomuceMod.model.Administracion.Ciudad",
@@ -304,15 +334,35 @@
                 "idTipoSexo", "compTipoSexo", "fechaNacimientoFuanBeneficiariosAfiliado", "idTipoParentesco", "compTipoParentesco",
                 "idTipoEtnia", "compTipoEtnia", "idTipoDiscapacidad", "compTipoDiscapacidad", "idCondicionDiscapacidad", "compCondicionDiscapacidad",
                 "idDepartamento", "compDepartamento", "idCiudad", "compCiudad", "idTipoZona", "compTipoZona", "telefonoFuanBeneficiariosAfiliado",
-                "upcFuanBeneficiariosAfiliado"
+                "upcFuanBeneficiariosAfiliado", "firmaBeneficiario"
             ]
         },
 
         setFuanIpsPrimaria: {
             storeId: "ipsAfiliadoStore",
             fields: [
-                "tipoFuanIpsPrimariaAfiliado", "nombreCompletoIps", "codigoFuanIpsPrimariaAfiliado"
+                "tipoFuanIpsPrimariaAfiliado", "nombreCompletoIps", "nombreFuanIpsPrimariaAfiliado", "codigoFuanIpsPrimariaAfiliado"
             ]
+        },
+        getConfData: {
+            storeId: "confDataStore",
+            autoLoad: true,
+            fields: [
+                "idConfiguracionGeneral", "tiempoInactividadConfiguracionGeneral", "salarioConfiguracionGeneral", "emailSalienteConfiguracionGeneral",
+                "pswEmailConfiguracionGeneral", "ccConfiguracionGeneral", "csConfiguracionGeneral", "hostConfiguracionGeneral",
+                "portConfiguracionGeneral", "sslConfiguracionGeneral"
+            ],
+            proxy: {
+                timeout: 600000,
+                useDefaultXhrHeader: false,
+                type: 'ajax',
+                url: Coomuce.Url.Administracion + "GetConfiguracionGeneralAll",
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                    totalProperty: "total"
+                }
+            }
         }
 
     }

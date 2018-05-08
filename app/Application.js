@@ -1151,6 +1151,212 @@ buscarIps: function (btn) {
     window.show();
 },
 
+buscarArl: function (btn) {
+    var me = btn.getController();
+
+    var store = Ext.create("Ext.data.Store", {
+        autoLoad: true,
+        fields: ["Id", "codigo", "nit", "nombre", "nombreCompleto"],
+        proxy: {
+            timeout: 600000,
+            useDefaultXhrHeader: false,
+            type: 'ajax',
+            url: Coomuce.Url.Funciones + "GetArlAll",
+            reader: {
+                type: 'json',
+                rootProperty: 'data',
+                totalProperty: "total"
+            }
+        }
+    });
+
+    var grid = Ext.create("Ext.grid.Panel", {
+        columns: [
+        { dataIndex: "codigo", header: "Código" },
+        { dataIndex: "nit", header: "Nit", width: 200 },
+        { dataIndex: "nombre", header: "Razón Social", width: 300 }
+        ],
+        columnLines: true,
+        listeners: {
+            rowdblclick: function (grd, record, tr, rowIndex, e, eOpts) {
+                for (var i = 0; i < btn.componentReference.length; i++) {
+                    var o = Ext.ComponentQuery.query('[name=' + btn.componentReference[i] + ']')[0];
+                    o.setValue(record.get(btn.componentReference[i]));
+                }
+                window.close();
+            }
+        },
+        sortableColumns: false,
+        store: store
+    });
+
+    var window = Ext.create("Ext.window.Window", {
+        bodyPadding: 10,
+        closeToolText: "Cerrar",
+        height: 400,
+        items: [
+        {
+            layout: {
+                type: "table",
+                columns: 2
+            },
+            items: [
+            {
+                items: [
+                {
+                    xtype: "combo",
+                    displayField: "nombre",
+                    fieldLabel: "Campo",
+                    queryMode: "local",
+                    id: "campoBusqueda",
+                    store: Ext.create("Ext.data.ArrayStore", {
+                        fields: ["Id", "nombre"],
+                        data: [
+                        ["codigo", "Código"],
+                        ["nit", "Nit"],
+                        ["nombre", "Razón Social"]
+                        ]
+                    }),
+                    valueField: "id"
+                },
+                {
+                    xtype: "textfield",
+                    fieldLabel: "Criterio",
+                    id: "criterioBusqueda"
+                }
+                ],
+                width: 350
+            },
+            {
+                items: [
+                {
+                    xtype: "button",
+                    text: "Buscar",
+                    handler: function () {
+                        var campo = Ext.getCmp("campoBusqueda").getValue();
+                        var criterio = Ext.getCmp("criterioBusqueda").getValue();
+
+                        store.clearFilter();
+                        store.filter(campo, criterio);
+                    }
+                }
+                ]
+            }
+            ]
+        },
+        { frame: true, height: 200, items: grid, layout: "fit" }
+        ],
+        modal: true,
+        title: "Lista de ARL",
+        width: 540
+    });
+
+    window.show();
+},
+
+buscarAfp: function (btn) {
+    var me = btn.getController();
+
+    var store = Ext.create("Ext.data.Store", {
+        autoLoad: true,
+        fields: ["Id", "codigo", "nit", "nombre", "nombreCompleto"],
+        proxy: {
+            timeout: 600000,
+            useDefaultXhrHeader: false,
+            type: 'ajax',
+            url: Coomuce.Url.Funciones + "GetAfpAll",
+            reader: {
+                type: 'json',
+                rootProperty: 'data',
+                totalProperty: "total"
+            }
+        }
+    });
+
+    var grid = Ext.create("Ext.grid.Panel", {
+        columns: [
+        { dataIndex: "codigo", header: "Código" },
+        { dataIndex: "nit", header: "Nit", width: 200 },
+        { dataIndex: "nombre", header: "Razón Social", width: 300 }
+        ],
+        columnLines: true,
+        listeners: {
+            rowdblclick: function (grd, record, tr, rowIndex, e, eOpts) {
+                for (var i = 0; i < btn.componentReference.length; i++) {
+                    var o = Ext.ComponentQuery.query('[name=' + btn.componentReference[i] + ']')[0];
+                    o.setValue(record.get(btn.componentReference[i]));
+                }
+                window.close();
+            }
+        },
+        sortableColumns: false,
+        store: store
+    });
+
+    var window = Ext.create("Ext.window.Window", {
+        bodyPadding: 10,
+        closeToolText: "Cerrar",
+        height: 400,
+        items: [
+        {
+            layout: {
+                type: "table",
+                columns: 2
+            },
+            items: [
+            {
+                items: [
+                {
+                    xtype: "combo",
+                    displayField: "nombre",
+                    fieldLabel: "Campo",
+                    queryMode: "local",
+                    id: "campoBusqueda",
+                    store: Ext.create("Ext.data.ArrayStore", {
+                        fields: ["Id", "nombre"],
+                        data: [
+                        ["codigo", "Código"],
+                        ["nit", "Nit"],
+                        ["nombre", "Razón Social"]
+                        ]
+                    }),
+                    valueField: "id"
+                },
+                {
+                    xtype: "textfield",
+                    fieldLabel: "Criterio",
+                    id: "criterioBusqueda"
+                }
+                ],
+                width: 350
+            },
+            {
+                items: [
+                {
+                    xtype: "button",
+                    text: "Buscar",
+                    handler: function () {
+                        var campo = Ext.getCmp("campoBusqueda").getValue();
+                        var criterio = Ext.getCmp("criterioBusqueda").getValue();
+
+                        store.clearFilter();
+                        store.filter(campo, criterio);
+                    }
+                }
+                ]
+            }
+            ]
+        },
+        { frame: true, height: 200, items: grid, layout: "fit" }
+        ],
+        modal: true,
+        title: "Lista de AFP",
+        width: 540
+    });
+
+    window.show();
+},
+
 buscarIpsAfiliacion: function (btn) {
     var me = btn.getController();
 
@@ -1184,7 +1390,7 @@ buscarIpsAfiliacion: function (btn) {
                     var gridIps = Ext.getCmp("Grid-IpsPrimaria").getStore();
                     var gridRow = gridIps.data.items[0].data;
                     gridRow.nombreCompletoIps = record.get(btn.componentReference[i])
-
+                    gridRow.nombreFuanIpsPrimariaAfiliado = gridRow.nombreCompletoIps;
                     var gridStore = Ext.getStore('ipsAfiliadoStore');
                     gridStore.remove(0);
                     gridStore.add(gridRow);

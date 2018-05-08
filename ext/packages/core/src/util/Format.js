@@ -219,6 +219,15 @@ Ext.define('Ext.util.Format', function () {
         },
 
         /**
+         * Format a number as US currency.
+         * @param {Number/String} value The numeric value to format
+         * @return {String} The formatted currency string
+         */
+        decimals : function(v) {
+            return me.getDecimal(v, '', 2);
+        },
+
+        /**
          * Format a number as a currency.
          * @param {Number/String} value The numeric value to format
          * @param {String} [sign] The currency sign to use (defaults to {@link #currencySign})
@@ -248,6 +257,34 @@ Ext.define('Ext.util.Format', function () {
             } else {
                 return Ext.String.format("{0}{1}{2}", negativeSign, currencySign || me.currencySign, v);
             }
+        },
+
+        /**
+         * Format a number as a currency.
+         * @param {Number/String} value The numeric value to format
+         * @param {String} [sign] The currency sign to use (defaults to {@link #currencySign})
+         * @param {Number} [decimals] The number of decimals to use for the currency
+         * (defaults to {@link #currencyPrecision})
+         * @param {Boolean} [end] True if the currency sign should be at the end of the string
+         * (defaults to {@link #currencyAtEnd})
+         * @return {String} The formatted currency string
+         */
+        getDecimal: function(v, currencySign, decimals, end) {
+            var negativeSign = '',
+                format = ",0",
+                i = 0;
+            v = v - 0;
+            if (v < 0) {
+                v = -v;
+                negativeSign = '-';
+            }
+            decimals = Ext.isDefined(decimals) ? decimals : me.currencyPrecision;
+            format += (decimals > 0 ? '.' : '');
+            for (; i < decimals; i++) {
+                format += '0';
+            }
+            v = me.number(v, format);
+            return Ext.String.format("{0}{1}", negativeSign, v);
         },
 
         /**
