@@ -100,6 +100,7 @@
             {
                 xtype: "textfield",
                 fieldLabel: "Código<br />(A registrar por la EPS.)",
+                allowBlank: true,
                 name: "codigoCotizanteFuan",
                 value: ""
             }
@@ -171,7 +172,7 @@
                 xtype: "datefield",
                 fieldLabel: "Fecha de nacimiento",
                 name: "fechaNacimientoFuanAfiliado"
-            }
+            },
             ],
             title: "II. DATOS BÁSICOS DE IDENTIFICACIÓN<br />(del cotizante o cabeza de familia)"
         },
@@ -261,7 +262,7 @@
                 name: "arlFuanAfiliado",
                 reference: "arlFuanAfiliado",
                 queryMode: "local",
-                valueField: "Id",
+                valueField: "nombreCompleto",
                 allowBlank: true
             },
             {
@@ -275,8 +276,17 @@
                 name: "pensionFuanAfiliado",
                 reference: "pensionFuanAfiliado",
                 queryMode: "local",
-                valueField: "Id",
+                valueField: "nombreCompleto",
                 allowBlank: true
+            },
+            {
+                xtype: "numberfield",
+                hidden: true,
+                allowBlank: true,
+                name: "ibcFuanAfiliado",
+                reference: "ibcFuanAfiliado",
+                readOnly: true,
+                value: Coomuce.Util.DatosUsuario.salarioMinimo
             },
             {
                 xtype: "numberfield",
@@ -285,8 +295,8 @@
                 listeners: {
                     blur: "onBlurNumber"
                 },
-                name: "ibcFuanAfiliado",
-                reference: "ibcFuanAfiliado",
+                name: "ibcFuanAfiliadoCurrency",
+                reference: "ibcFuanAfiliadoCurrency",
                 readOnly: true,
                 value: Coomuce.Util.DatosUsuario.salarioMinimo
             },

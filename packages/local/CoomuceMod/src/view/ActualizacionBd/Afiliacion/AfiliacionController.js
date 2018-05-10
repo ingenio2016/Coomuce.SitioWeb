@@ -5,8 +5,9 @@
     onAfterRender: function() {
         //var salarioBasico = Ext.getStore("confDataStore").data.items;
         var salarioControl = this.lookupReference("ibcFuanAfiliado");
-        console.log(Coomuce.Util.DatosUsuario.salarioMinimo);
+        var salarioControl2 = this.lookupReference("ibcFuanAfiliadoCurrency");
         salarioControl.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
+        salarioControl2.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
     },
 
     getTitleView: function () {
@@ -66,6 +67,8 @@
                 if(record.get("idTipoRegimen") == 1){
                     var salario = this.lookupReference("ibcFuanAfiliado");
                     salario.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
+                    var salario2 = this.lookupReference("ibcFuanAfiliadoCurrency");
+                    salario2.setValue(Coomuce.Util.DatosUsuario.salarioMinimo);
                 }
             }
         }
@@ -136,7 +139,7 @@
                 idCondicionDiscapacidad: 0, 
                 compCondicionDiscapacidad: "",
                 numCarnetFuanAfiliado: "", 
-                idGrupoPoblacional: 0, 
+                idGrupoPoblacional: null, 
                 arlFuanAfiliado: "", 
                 pensionFuanAfiliado: "", 
                 ibcFuanAfiliado: 0, 
@@ -156,10 +159,11 @@
                 primerNombreConyugueFuanAfiliado: null, 
                 segundoNombreConyugueFuanAfiliado: null, 
                 idTipoIdentificacionConyugue: null, 
-                identificacionConyugueFuanAfiliado: null, 
+                identificacionConyugueFuanAfiliado: "", 
                 idTipoSexoConyugue: null, 
-                fechaNacimientoConyugueFuanAfiliado: null,
-                upcFuanAfiliado: 0
+                fechaNacimientoConyugueFuanAfiliado: "",
+                upcFuanAfiliado: 0,
+                puntajeSisbenFuanAfiliado: 0
             }
             ];
 
@@ -211,7 +215,8 @@
                     idTipoAfiliado: infoForm.idTipoAfiliado,
                     idTipoCotizante: infoForm.idTipoCotizante,
                     codigoCotizanteFuan: infoForm.codigoCotizanteFuan,
-                    idUsuario: Coomuce.Util.DatosUsuario.idUsuario
+                    idUsuario: Coomuce.Util.DatosUsuario.idUsuario,
+                    firmaAfiliado: (infoForm["firmaNovedad"])?infoForm["firmaNovedad"]:""
                 };
 
                 if(infoFuan.idTipoAfiliacion == "" || infoFuan.idTipoAfiliado == "" || infoFuan.idTipoCotizante == "" || infoFuan.idTipoRegimen == ""){
@@ -221,6 +226,11 @@
 
                 if(infoForm.primerApellidoFuanAfiliado == "" || infoForm.primerNombreFuanAfiliado == "" || infoForm.idTipoIdentificacionII == "" || infoForm.identificacionFuanAfiliado == "" || infoForm.idTipoSexoII == "" || infoForm.fechaNacimientoFuanAfiliado == ""){
                     Coomuce.Util.ShowMessage({ type: "ATENCION", title: titleView, msg: "Débe completar correctamente la sección 2. DATOS BÁSICOS DE IDENTIFICACIÓN para continuar" });
+                    return false;
+                }
+
+                if(infoForm.idTipoEtnia == "" || infoForm.idTipoDiscapacidad == "" || infoForm.idCondicionDiscapacidad == "" || infoForm.idTipoZona == "" || infoForm.idGrupoPoblacional == "" || infoForm.idDepartamento == "" || infoForm.idCiudadIII == ""){
+                    Coomuce.Util.ShowMessage({ type: "ATENCION", title: titleView, msg: "Débe completar correctamente la sección 3. DATOS BÁSICOS DE IDENTIFICACIÓN para continuar" });
                     return false;
                 }
 
@@ -241,7 +251,7 @@
                     idTipoEtnia: infoForm.idTipoEtnia, 
                     idTipoDiscapacidad: (infoForm.idTipoDiscapacidad != null) ? infoForm.idTipoDiscapacidad : null, 
                     idCondicionDiscapacidad: (infoForm.idCondicionDiscapacidad != null) ? infoForm.idCondicionDiscapacidad : null,
-                    puntajeSisbenFuanAfiliado: infoForm.puntajeSisbenFuanAfiliado,
+                    puntajeSisbenFuanAfiliado: (infoForm.puntajeSisbenFuanAfiliado)?parseFloat(infoForm.puntajeSisbenFuanAfiliado):0,
                     numCarnetFuanAfiliado: infoForm.numCarnetFuanAfiliado, 
                     idGrupoPoblacional: (infoForm.idGrupoPoblacional != null) ? infoForm.idGrupoPoblacional : null, 
                     arlFuanAfiliado: infoForm.arlFuanAfiliado, 
@@ -258,15 +268,15 @@
                     segundoApellidoConyugueFuanAfiliado: infoForm.segundoApellidoConyugueFuanAfiliado,
                     primerNombreConyugueFuanAfiliado: infoForm.primerNombreConyugueFuanAfiliado,
                     segundoNombreConyugueFuanAfiliado: infoForm.segundoNombreConyugueFuanAfiliado,
-                    idTipoIdentificacionConyugue: (infoForm.idTipoIdentificacionConyugue != null) ? infoForm.idTipoIdentificacionConyugue : null,
+                    idTipoIdentificacionConyugue: (infoForm.idTipoIdentificacionConyugue != "") ? infoForm.idTipoIdentificacionConyugue : 4,
                     identificacionConyugueFuanAfiliado: infoForm.identificacionConyugueFuanAfiliado,
-                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugueFuanAfiliado != null) ? infoForm.idTipoSexoConyugueFuanAfiliado : null,
-                    fechaNacimientoConyugueFuanAfiliado: infoForm.fechaNacimientoConyugueFuanAfiliado,
+                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugueFuanAfiliado != "") ? infoForm.idTipoSexoConyugueFuanAfiliado : 2,
+                    fechaNacimientoConyugueFuanAfiliado: (infoForm.fechaNacimientoConyugueFuanAfiliado != "") ? infoForm.fechaNacimientoConyugueFuanAfiliado : new Date(),
                     upcFuanAfiliado: 0,
                     cabezafamilia: 1,
                     grupofamiliar: infoForm.identificacionFuanAfiliado,
-                    firmaFuanAfiliado: infoForm["firmaNovedad"],
-                    identificacionAnexo: infoForm["documentoNovedad"]
+                    identificacionAnexo: infoForm["documentoNovedad"],
+                    firmaFuanAfiliado: (infoForm["firmaNovedad"])?infoForm["firmaNovedad"]:""
                 });
 
                 /*var entidadTerritorial = {
@@ -285,13 +295,13 @@
                     idFuanEmpleadorAfiliado: 0, 
                     idFuanAfiliado: 0, 
                     nombreFuanEmpleadorAfiliado: infoForm.nombreFuanEmpleadorAfiliado,
-                    idTipoIdentificacion: infoForm.idTipoIdentificacion, 
+                    idTipoIdentificacion: (infoForm.idTipoIdentificacion != "")?infoForm.idTipoIdentificacion:4, 
                     identificacionFuanEmpleadorAfiliado: infoForm.identificacionFuanEmpleadorAfiliado, 
                     tipoPagadorFuanEmpleadorAfiliado: infoForm.tipoPagadorFuanEmpleadorAfiliado, 
                     direccionFuanEmpleadorAfiliado: infoForm.direccionFuanEmpleadorAfiliado,
                     telefonoFuanEmpleadorAfiliado: infoForm.telefonoFuanEmpleadorAfiliado, 
                     emailFuanEmpleadorAfiliado: infoForm.emailFuanEmpleadorAfiliado, 
-                    idCiudad: infoForm.idCiudadV
+                    idCiudad: (infoForm.idCiudadV != "")?infoForm.idCiudadV:1
                 };
 
                 var gridBeneficiarios = Ext.getCmp("Grid-Beneficiarios");
@@ -302,7 +312,18 @@
                     var dato = ob.data;
                     dato.cabezafamilia = 0;
                     dato.grupofamiliar =  infoForm.identificacionFuanAfiliado;
-                    afiliados.push(dato);
+
+                    if(dato.primerApellidoFuanAfiliado != "" || dato.primerNombreFuanAfiliado != "" || dato.idTipoIdentificacionII != "" || dato.identificacionFuanAfiliado != "" || dato.idTipoSexoII != "" || dato.fechaNacimientoFuanAfiliado != ""){
+                        if(dato.idTipoEtnia != "" || dato.idTipoDiscapacidad != "" || dato.idCondicionDiscapacidad != "" || dato.idTipoZona != "" || dato.idGrupoPoblacional != "" || dato.idDepartamento != "" || dato.idCiudadIII == ""){
+                            afiliados.push(dato);
+                        }else{
+                            Coomuce.Util.ShowMessage({ type: "ATENCION", title: titleView, msg: "Débe completar correctamente la sección de beneficiarios para continuar" });
+                            return false;
+                        }
+                    }else{
+                        Coomuce.Util.ShowMessage({ type: "ATENCION", title: titleView, msg: "Débe completar correctamente la sección de beneficiarios para continuar" });
+                        return false;
+                    }
                 });
 
                 var ips = [];
@@ -318,7 +339,8 @@
                 });
 
                 var anexos = {
-                    totalAnexo56FuanAnexos: infoForm.TotalQuantity,
+                    idFuan: 0,
+                    totalAnexo56FuanAnexos: (infoForm.TotalQuantity != "")?parseInt(infoForm.TotalQuantity):0,
                     totalAnexo56CNFuanAnexos: infoForm.CNQuantity,
                     totalAnexo56RCFuanAnexos: infoForm.RCQuantity,
                     totalAnexo56TIFuanAnexos: infoForm.TIQuantity,
@@ -358,7 +380,7 @@
                 };
 
                 console.log(conf.data);
-                //Coomuce.Util.EnviarPost(conf);
+                Coomuce.Util.EnviarPost(conf);
             }
         });
 },
