@@ -2176,10 +2176,12 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     idTipoIdentificacion: 0,
                     compTipoIdentificacion: "",
                     identificacionFuanAfiliado: "",
-                    idTipoSexo: 0,
+                    idTipoSexo: 1,
                     compTipoSexo: "",
                     fechaNacimientoFuanAfiliado: "",
-                    idTipoEtnia: 0,
+                    idTipoParentesco: 0,
+                    compTipoParentesco: "",
+                    idTipoEtnia: 1,
                     compTipoEtnia: "",
                     idTipoDiscapacidad: 0,
                     compTipoDiscapacidad: "",
@@ -2201,16 +2203,21 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     idTipoZona: 0,
                     compTipoZona: "",
                     barrioFuanAfiliado: "",
-                    primerApellidoConyugueFuanAfiliado: null,
-                    segundoApellidoConyugueFuanAfiliado: null,
-                    primerNombreConyugueFuanAfiliado: null,
-                    segundoNombreConyugueFuanAfiliado: null,
+                    primerApellidoConyugueFuanAfiliado: "",
+                    segundoApellidoConyugueFuanAfiliado: "",
+                    primerNombreConyugueFuanAfiliado: "",
+                    segundoNombreConyugueFuanAfiliado: "",
                     idTipoIdentificacionConyugue: null,
                     identificacionConyugueFuanAfiliado: "",
                     idTipoSexoConyugue: null,
-                    fechaNacimientoConyugueFuanAfiliado: "",
+                    fechaNacimientoConyugueFuanAfiliado: null,
                     upcFuanAfiliado: 0,
-                    puntajeSisbenFuanAfiliado: 0
+                    puntajeSisbenFuanAfiliado: "",
+                    upcFuanAfiliado: 0,
+                    firmaFuanAfiliado: "",
+                    grupofamiliar: null,
+                    identificacionAnexo: "",
+                    cabezafamilia: 0
                 }
             ];
         storeGrid.insert(0, row);
@@ -2278,7 +2285,7 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     Coomuce.Util.ShowMessage({
                         type: "ATENCION",
                         title: titleView,
-                        msg: "Débe completar correctamente la sección 3. DATOS BÁSICOS DE IDENTIFICACIÓN para continuar"
+                        msg: "Débe completar correctamente la sección 3. DATOS COMPLEMENTARIOS para continuar"
                     });
                     return false;
                 }
@@ -2298,12 +2305,12 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     idTipoEtnia: infoForm.idTipoEtnia,
                     idTipoDiscapacidad: (infoForm.idTipoDiscapacidad != null) ? infoForm.idTipoDiscapacidad : null,
                     idCondicionDiscapacidad: (infoForm.idCondicionDiscapacidad != null) ? infoForm.idCondicionDiscapacidad : null,
-                    puntajeSisbenFuanAfiliado: (infoForm.puntajeSisbenFuanAfiliado) ? parseFloat(infoForm.puntajeSisbenFuanAfiliado) : 0,
+                    puntajeSisbenFuanAfiliado: (infoForm.puntajeSisbenFuanAfiliado) ? infoForm.puntajeSisbenFuanAfiliado : 0,
                     numCarnetFuanAfiliado: infoForm.numCarnetFuanAfiliado,
                     idGrupoPoblacional: (infoForm.idGrupoPoblacional != null) ? infoForm.idGrupoPoblacional : null,
                     arlFuanAfiliado: infoForm.arlFuanAfiliado,
                     pensionFuanAfiliado: infoForm.pensionFuanAfiliado,
-                    ibcFuanAfiliado: (infoForm.ibcFuanAfiliado != null) ? infoForm.ibcFuanAfiliado : null,
+                    ibcFuanAfiliado: (infoForm.ibcFuanAfiliado != null) ? infoForm.ibcFuanAfiliado : "",
                     direccionFuanAfiliado: infoForm.direccionFuanAfiliado,
                     telefonoFuanAfiliado: infoForm.telefonoFuanAfiliado,
                     celularFuanAfiliado: infoForm.celularFuanAfiliado,
@@ -2315,15 +2322,16 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                     segundoApellidoConyugueFuanAfiliado: infoForm.segundoApellidoConyugueFuanAfiliado,
                     primerNombreConyugueFuanAfiliado: infoForm.primerNombreConyugueFuanAfiliado,
                     segundoNombreConyugueFuanAfiliado: infoForm.segundoNombreConyugueFuanAfiliado,
-                    idTipoIdentificacionConyugue: (infoForm.idTipoIdentificacionConyugue != "") ? infoForm.idTipoIdentificacionConyugue : 4,
+                    idTipoIdentificacionConyugue: (infoForm.idTipoIdentificacionConyugue != "") ? infoForm.idTipoIdentificacionConyugue : null,
                     identificacionConyugueFuanAfiliado: infoForm.identificacionConyugueFuanAfiliado,
-                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugueFuanAfiliado != "") ? infoForm.idTipoSexoConyugueFuanAfiliado : 2,
-                    fechaNacimientoConyugueFuanAfiliado: (infoForm.fechaNacimientoConyugueFuanAfiliado != "") ? infoForm.fechaNacimientoConyugueFuanAfiliado : new Date(),
+                    idTipoSexoConyugue: (infoForm.idTipoSexoConyugueFuanAfiliado != "") ? infoForm.idTipoSexoConyugueFuanAfiliado : null,
+                    fechaNacimientoConyugueFuanAfiliado: (infoForm.fechaNacimientoConyugueFuanAfiliado != "") ? infoForm.fechaNacimientoConyugueFuanAfiliado : null,
                     upcFuanAfiliado: 0,
                     cabezafamilia: 1,
-                    grupofamiliar: infoForm.identificacionFuanAfiliado,
+                    grupofamiliar: (infoForm.identificacionFuanAfiliado != "") ? parseInt(infoForm.identificacionFuanAfiliado) : null,
                     identificacionAnexo: infoForm["documentoNovedad"],
-                    firmaFuanAfiliado: (infoForm["firmaNovedad"]) ? infoForm["firmaNovedad"] : ""
+                    firmaFuanAfiliado: (infoForm["firmaNovedad"]) ? infoForm["firmaNovedad"] : "",
+                    idTipoParentesco: null
                 });
                 /*var entidadTerritorial = {
                     idFuan: 0, 
@@ -2388,14 +2396,14 @@ Ext.define("CoomuceMod.view.ActualizacionBd.AfiliacionController", {
                 var anexos = {
                         idFuan: 0,
                         totalAnexo56FuanAnexos: (infoForm.TotalQuantity != "") ? parseInt(infoForm.TotalQuantity) : 0,
-                        totalAnexo56CNFuanAnexos: infoForm.CNQuantity,
-                        totalAnexo56RCFuanAnexos: infoForm.RCQuantity,
-                        totalAnexo56TIFuanAnexos: infoForm.TIQuantity,
-                        totalAnexo56CCFuanAnexos: infoForm.CCQuantity,
-                        totalAnexo56PAFuanAnexos: infoForm.PAQuantity,
-                        totalAnexo56CEFuanAnexos: infoForm.CEQuantity,
-                        totalAnexo56CDFuanAnexos: infoForm.CDQuantity,
-                        totalAnexo56CSFuanAnexos: infoForm.CSQuantity,
+                        totalAnexo56CNFuanAnexos: (infoForm.CNQuantity != "") ? infoForm.CNQuantity : 0,
+                        totalAnexo56RCFuanAnexos: (infoForm.RCQuantity != "") ? infoForm.RCQuantity : 0,
+                        totalAnexo56TIFuanAnexos: (infoForm.TIQuantity != "") ? infoForm.TIQuantity : 0,
+                        totalAnexo56CCFuanAnexos: (infoForm.CCQuantity != "") ? infoForm.CCQuantity : 0,
+                        totalAnexo56PAFuanAnexos: (infoForm.PAQuantity != "") ? infoForm.PAQuantity : 0,
+                        totalAnexo56CEFuanAnexos: (infoForm.CEQuantity != "") ? infoForm.CEQuantity : 0,
+                        totalAnexo56CDFuanAnexos: (infoForm.CDQuantity != "") ? infoForm.CDQuantity : 0,
+                        totalAnexo56CSFuanAnexos: (infoForm.CSQuantity != "") ? infoForm.CSQuantity : 0,
                         anexo57: infoForm["incapacidadPermanenteNovedad"],
                         anexo58: infoForm["registroCivilNovedad"],
                         anexo59: infoForm["escrituraPublicaNovedad"],
